@@ -1,0 +1,122 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>FAME Biodiesel · Ratchaphon Phonpoon</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&family=Kalam&family=Anuphan:wght@400;600&display=swap">
+<link rel="stylesheet" href="../style.css?v=3">
+<style>
+.two { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; align-items: start; }
+@media (max-width: 860px) { .two { grid-template-columns: 1fr; } }
+.price { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+@media (max-width: 560px) { .price { grid-template-columns: 1fr; } }
+.case { border-radius: 18px; padding: 20px 22px; display: grid; gap: 6px; }
+.case.loss { background: #fdecea; }
+.case.win { background: var(--tint); }
+.case p.k { font: 500 12px/1.2 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); }
+.case p.v { font: 800 34px/1.1 var(--display); letter-spacing: -.01em; }
+.case.loss p.v { color: #a8231a; }
+.case.win p.v { color: var(--orange-ink); }
+.step { display: grid; gap: 10px; }
+.step h3 { font-size: 22px; font-weight: 700; }
+.step .n { font: 500 12.5px/1 var(--mono); color: var(--orange-ink); letter-spacing: .08em; text-transform: uppercase; }
+.irr { position: relative; display: grid; gap: 10px; --lab: 150px; --val: 64px; background: var(--tint); border-radius: 18px; padding: 22px; }
+.irr .row { display: grid; grid-template-columns: var(--lab) 1fr var(--val); gap: 10px; align-items: center; font-size: 14.5px; }
+.irr i { display: block; height: 16px; border-radius: 8px; background: #f3c2ad; }
+.irr .up i { background: var(--orange); }
+.irr b { font: 500 14px var(--mono); color: var(--ink); text-align: right; }
+.irr .hurdle { position: absolute; top: 14px; bottom: 50px; border-left: 2px dashed #a8231a; }
+@media (max-width: 560px) { .irr { --lab: 108px; --val: 48px; } .irr .row { font-size: 13px; } }
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap"><a class="brand" href="../index.html"><i>RP</i>Ratchaphon P.</a><nav><a href="../index.html#work">Work</a><a class="cv" href="../Ratchaphon_Resume.pdf" target="_blank" rel="noopener">CV (PDF)</a></nav></div></header>
+<main class="wrap">
+  <a class="back" href="../index.html#work">All work</a>
+  <div class="page-head">
+    <p class="eyebrow">B.Eng. Capstone Design · Group of five · 2026</p>
+    <h1>FAME biodiesel from used cooking oil</h1>
+    <p class="lede">A complete plant design, written up in a 127-page report, that turns used cooking oil into B100 biodiesel and refined glycerol. I owned the process design and optimization.</p>
+    <div class="meta"><span>Aspen HYSYS</span><span>Reaction kinetics</span><span>Distillation</span><span>Process economics</span></div>
+  </div>
+
+  <dl class="facts" style="margin-bottom:8px">
+    <div><dt>Used cooking oil in</dt><dd>219,800 t/yr</dd></div>
+    <div><dt>B100 biodiesel out</dt><dd>209,100 t/yr</dd></div>
+    <div><dt>Refined glycerol out</dt><dd>20,640 t/yr</dd></div>
+    <div><dt>Fixed capital</dt><dd>$57.9M</dd></div>
+  </dl>
+  <p class="note" style="margin-bottom:28px">Figures from the final design report. Plant sited in Rayong, on the Eastern Seaboard.</p>
+
+  <div class="block">
+    <div class="two">
+      <div class="prose">
+        <h2 style="margin-top:0">My part</h2>
+        <ul>
+          <li>Modelled the base-catalysed transesterification reactor and the separation train in Aspen HYSYS.</li>
+          <li>Optimized the reactor for biodiesel yield. At a 6:1 methanol-to-oil ratio, conversion reaches about 96% at 100 m³. Going to 8:1 adds only about one more point, and every extra mole of methanol has to be recovered again downstream.</li>
+          <li>Proposed turning the oily solids filtered out of the feed (about 2,200 t/yr) into biogas by anaerobic digestion, and did the material balance: roughly 3,800 m³ of biogas a day, about 61 GJ of energy, from waste that would otherwise go to disposal.</li>
+        </ul>
+      </div>
+    <figure class="fig"><div class="slot" style="aspect-ratio:1404/1075;background:#fff"><img src="../assets/b100-reactor.png" alt="Biodiesel conversion against reactor volume for methanol-to-oil ratios of 1:1, 3:1, 6:1 and 8:1" style="object-fit:contain" onerror="this.remove()"></div><figcaption>Conversion vs. reactor volume at four methanol-to-oil ratios</figcaption></figure>
+    </div>
+  </div>
+
+  <div class="block">
+    <h2>How the plant works</h2>
+    <figure class="fig"><div class="slot" style="aspect-ratio:1142/420;background:#fff"><img src="../assets/b100-overview.png" alt="Block diagram: used cooking oil to pretreatment, biodiesel production and glycerol refining, with methanol recycled" style="object-fit:contain" onerror="this.remove()"></div><figcaption>Three sections, with methanol recycled from glycerol refining back to biodiesel production</figcaption></figure>
+
+    <div class="step">
+      <p class="n">Section 1</p>
+      <h3>Pretreatment</h3>
+      <p style="max-width:68ch">Used cooking oil is filtered, then its free fatty acids are converted to FAME with methanol and a sulfuric-acid catalyst (6:1 methanol to FFA). Water is removed and methanol recycled, because free acids and water would otherwise turn into soap in the next reactor.</p>
+    <figure class="fig"><div class="slot" style="aspect-ratio:1836/529;background:#fff"><img src="../assets/b100-pretreatment.png" alt="Aspen HYSYS flowsheet of the pretreatment section" style="object-fit:contain" onerror="this.remove()"></div><figcaption>Pretreatment: filtration, acid esterification and dehydration</figcaption></figure>
+    </div>
+    <div class="step">
+      <p class="n">Section 2 · my focus</p>
+      <h3>Biodiesel production</h3>
+      <p style="max-width:68ch">The treated oil reacts with methanol over a KOH catalyst to make biodiesel and glycerol. Excess methanol is flashed off and recycled, the crude biodiesel is water-washed, and a distillation column delivers the FAME product.</p>
+    <figure class="fig"><div class="slot" style="aspect-ratio:1388/777;background:#fff"><img src="../assets/b100-biodiesel.png" alt="Aspen HYSYS flowsheet of the biodiesel section" style="object-fit:contain" onerror="this.remove()"></div><figcaption>Base reactor, methanol recovery, water wash and FAME distillation</figcaption></figure>
+    </div>
+    <div class="step">
+      <p class="n">Section 3</p>
+      <h3>Glycerol refining</h3>
+      <p style="max-width:68ch">The glycerol side-stream is distilled to strip water and methanol, flashed, then distilled again to give refined glycerol, a second product that adds about $10M a year in sales.</p>
+    <figure class="fig"><div class="slot" style="aspect-ratio:1746/531;background:#fff"><img src="../assets/b100-glycerol.png" alt="Aspen HYSYS flowsheet of the glycerol refining section" style="object-fit:contain" onerror="this.remove()"></div><figcaption>Two columns and a flash drum take crude glycerol to storage grade</figcaption></figure>
+    </div>
+  </div>
+
+  <div class="block">
+    <h2>The economics hinge on the oil price</h2>
+    <p style="max-width:68ch">Used cooking oil is by far the biggest cost, and the gap between what it costs and what B100 sells for is narrow. At the prices in our brief (oil at $925/t, B100 at $1,026/t), the plant makes a gross profit of $13.0M a year, but its return only matches the 7% the investment needs. So on today's prices we judged it not yet attractive, and small price moves change that completely.</p>
+    <div class="irr">
+      <div class="row"><span>Base case</span><i style="width:24%"></i><b>≈7%</b></div>
+      <div class="row up"><span>Oil 5% cheaper</span><i style="width:62%"></i><b>≈18%</b></div>
+      <div class="row up"><span>Oil 10% cheaper</span><i style="width:96.5%"></i><b>≈28%</b></div>
+      <div class="row up"><span>B100 5% dearer</span><i style="width:65.5%"></i><b>≈19%</b></div>
+      <div class="row up"><span>B100 10% dearer</span><i style="width:100%"></i><b>≈29%</b></div>
+      <p class="note">Internal rate of return (IRR). The dashed line is the 7% required return.</p>
+      <div class="hurdle" style="left:calc(22px + var(--lab) + 10px + (100% - 64px - var(--lab) - var(--val)) * .241)"></div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="prose">
+      <h2 style="margin-top:0">Beyond the flowsheet</h2>
+      <ul>
+        <li><strong>Heat integration:</strong> a heat-exchanger network designed from the Aspen Energy Analyzer composite curves.</li>
+        <li><strong>Waste:</strong> wastewater goes to certified treatment, filter solids to the biogas plant above, and the salt from catalyst neutralization is sold as fertilizer.</li>
+        <li><strong>Safety:</strong> HAZOP of the reactor, covering temperature, pressure, venting and liquid level.</li>
+        <li><strong>Equipment design:</strong> sizing of every major unit, shell and head thicknesses to ASME Section VIII Division 1, line sizing and exchanger datasheets.</li>
+        <li><strong>Site:</strong> location study, P&amp;IDs, and a plant layout with safety zoning.</li>
+      </ul>
+    </div>
+    <div class="actions"><a class="btn primary arrow" href="../assets/b100-slides.pdf" target="_blank" rel="noopener">Open the full project slides (PDF, 11 MB) </a></div>
+  </div>
+</main>
+<footer class="wrap"><span>© 2026 Ratchaphon Phonpoon</span><a href="../index.html">Back to home</a></footer>
+</body>
+</html>

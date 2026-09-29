@@ -1,0 +1,274 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ratchaphon Phonpoon</title>
+<meta name="description" content="Ratchaphon (Poom) Phonpoon: chemical engineering master's student at KMUTT ChEPS. Process simulation, refinery work, and things I've built.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&family=Kalam&family=Anuphan:wght@400;600&display=swap">
+<link rel="stylesheet" href="style.css?v=3">
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#"><i>RP</i>Ratchaphon P.</a>
+    <nav aria-label="Sections">
+      <a href="#work">Work</a>
+      <a href="#built">Things I've built</a>
+      <a href="#activities">Activities</a>
+      <a href="#about">About</a>
+      <a class="cv" href="Ratchaphon_Resume.pdf" target="_blank" rel="noopener">CV (PDF)</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <section class="hero" aria-label="Introduction">
+    <div>
+      <div class="nick">
+        <span class="redline">hi! everyone calls me Poom</span>
+        <svg width="46" height="34" viewBox="0 0 46 34" aria-hidden="true"><path d="M4 4 C 18 6, 30 14, 36 28 M36 28 l-9 -3 M36 28 l2 -9" fill="none" stroke="#d6281e" stroke-width="2" stroke-linecap="round"/></svg>
+      </div>
+      <h1>Ratchaphon Phonpoon<span class="dot">.</span></h1>
+      <p class="intro">I'm a chemical engineering master's student at KMUTT's Practice School (ChEPS). I like process work where a model meets a real plant: I spent six months at Thaioil building Aspen HYSYS models from live plant data. Outside the flowsheets, I build small tools that solve everyday problems for the people around me.</p>
+      <div class="actions">
+        <a class="btn primary" href="#work">See my work</a>
+        <a class="btn" href="Ratchaphon_Resume.pdf" target="_blank" rel="noopener">Download CV</a>
+      </div>
+    </div>
+    <div class="slot portrait">Your photo<br>assets/me.jpg<img src="assets/me.jpg" alt="Portrait of Ratchaphon Phonpoon" onerror="this.remove()"></div>
+  </section>
+
+  <dl class="facts">
+    <div><dt>Looking for</dt><dd>12-month on-site internship</dd></div>
+    <div><dt>Available</dt><dd>Jun 2027 – May 2028</dd></div>
+    <div><dt>Studying</dt><dd>M.Eng. ChE, KMUTT ChEPS</dd></div>
+    <div><dt>B.Eng.</dt><dd>GPA 3.70, First-Class Honours</dd></div>
+  </dl>
+
+  <section class="section" id="work">
+    <div class="section-head">
+      <p class="eyebrow">Process engineering</p>
+      <h2>Plant work and design projects.</h2>
+    </div>
+    <div class="works">
+
+      <a class="card" href="work/biodiesel.html">
+        <div class="art">
+          <svg viewBox="0 0 320 200" aria-hidden="true">
+            <!-- stirred transesterification reactor feeding a horizontal decanter -->
+            <text x="8" y="28">UCO+MeOH</text>
+            <path class="s" d="M8 38 H64 V50"/><path class="f" d="M59 50 L64 58 L69 50 Z"/>
+            <path class="s" d="M52 62 Q88 48 124 62 V130 Q124 158 88 158 Q52 158 52 130 Z"/>
+            <path class="t" d="M54 82 Q64 78 74 82 T94 82 T114 82 T122 82"/>
+            <rect class="s" x="78" y="26" width="20" height="16" rx="2"/>
+            <path class="s" d="M88 42 V136 M72 140 L88 132 L104 140"/>
+            <path class="s" d="M88 158 V172 H196 V150"/>
+            <rect class="s" x="170" y="96" width="126" height="54" rx="27"/>
+            <path class="t" d="M176 126 H290"/>
+            <path class="t" d="M246 96 V126"/>
+            <path class="s" d="M280 96 V74"/><path class="f" d="M275 74 L280 66 L285 74 Z"/>
+            <text x="280" y="58" text-anchor="middle">B100</text>
+            <path class="s" d="M262 150 V170"/><path class="f" d="M257 170 L262 178 L267 170 Z"/>
+            <text x="262" y="194" text-anchor="middle">glycerol</text>
+          </svg>
+        </div>
+        <p class="tag">B.Eng. capstone · 2026</p>
+        <h3>FAME biodiesel from used cooking oil</h3>
+        <p>I owned process design and optimization: the transesterification reactor and separation train in Aspen HYSYS, plus a biogas unit I proposed to turn the plant's filter waste into about 3,800 m³ of biogas a day.</p>
+      </a>
+
+      <a class="card" href="work/hydrogen.html">
+        <div class="art">
+          <svg viewBox="0 0 320 200" aria-hidden="true">
+            <!-- top-fired reformer furnace with catalyst tubes, then a shift reactor -->
+            <text x="14" y="24">CH₄ + H₂O</text>
+            <path class="s" d="M14 36 H54"/><path class="f" d="M54 31 L62 36 L54 41 Z"/>
+            <path class="s" d="M62 36 H138"/>
+            <rect class="s" x="46" y="50" width="108" height="104" rx="4"/>
+            <path class="s" d="M68 36 V168 M90 36 V168 M112 36 V168 M134 36 V168"/>
+            <path class="s" d="M62 168 H138 M138 168 H200 V150"/>
+            <path class="f" d="M79 76 q-6 -8 0 -16 q6 8 0 16 Z M101 76 q-6 -8 0 -16 q6 8 0 16 Z M123 76 q-6 -8 0 -16 q6 8 0 16 Z"/>
+            <rect class="s" x="182" y="58" width="36" height="92" rx="18"/>
+            <path class="t" d="M184 88 H216 M184 122 H216 M188 96 L196 88 M196 104 L212 88 M200 114 L212 102 M188 114 L196 106 M206 122 L212 116"/>
+            <path class="s" d="M200 58 V42 H262"/><path class="f" d="M262 37 L270 42 L262 47 Z"/>
+            <text x="276" y="46">H₂</text>
+            <text x="100" y="190" text-anchor="middle">reformer</text>
+            <text x="200" y="190" text-anchor="middle">shift</text>
+          </svg>
+        </div>
+        <p class="tag">M.Eng. design · In progress</p>
+        <h3>Hydrogen plant by steam methane reforming</h3>
+        <p>Aspen Plus flowsheet with literature kinetics for the reformer and shift reactors, plus a pinch analysis for the heat-exchanger network.</p>
+      </a>
+
+      <a class="card" href="work/fouling.html">
+        <div class="art">
+          <svg viewBox="0 0 320 200" aria-hidden="true">
+            <!-- shell-and-tube exchanger, side elevation, with four temperature indicators -->
+            <rect class="s" x="66" y="72" width="26" height="56" rx="3"/>
+            <path class="s" d="M92 76 H232 M92 124 H232 M232 76 A16 24 0 0 1 232 124"/>
+            <path class="t" d="M92 88 H240 M92 100 H242 M92 112 H240"/>
+            <path class="t" d="M124 76 V110 M156 90 V124 M188 76 V110 M218 90 V124"/>
+            <path class="s" d="M79 72 V58 M73 58 H85 M79 128 V142 M73 142 H85"/>
+            <path class="s" d="M140 76 V58 M134 58 H146 M214 124 V142 M208 142 H220"/>
+            <path class="s" d="M108 124 L102 152 H134 L128 124 M188 124 L182 152 H214"/>
+            <path class="t" stroke-dasharray="3 3" d="M79 58 V46 M140 58 V46 M79 142 V154 M214 142 V154"/>
+            <circle class="w" cx="79" cy="34" r="12"/><text x="79" y="38" text-anchor="middle">TI</text>
+            <circle class="w" cx="140" cy="34" r="12"/><text x="140" y="38" text-anchor="middle">TI</text>
+            <circle class="w" cx="252" cy="166" r="12"/><text x="252" y="170" text-anchor="middle">TI</text>
+            <path class="t" stroke-dasharray="3 3" d="M214 154 V166 H240"/>
+            <circle class="w" cx="42" cy="166" r="12"/><text x="42" y="170" text-anchor="middle">TI</text>
+            <path class="t" stroke-dasharray="3 3" d="M79 154 V166 H54"/>
+          </svg>
+        </div>
+        <p class="tag">Thaioil · Internship · 2025</p>
+        <h3>Finding fouling in a crude preheat train</h3>
+        <p>Back-calculating fouling from operating temperatures with rigorous exchanger models. Try a simplified version of the method on the page.</p>
+      </a>
+
+    </div>
+  </section>
+
+  <section class="section" id="built">
+    <div class="section-head">
+      <p class="eyebrow">Things I've built</p>
+      <h2>Small tools that real people use every day.</h2>
+    </div>
+    <div class="works">
+
+      <a class="card" href="work/card-station.html">
+        <div class="art">
+          <svg viewBox="0 0 320 200" aria-hidden="true">
+            <!-- student card tapped on a reader, networked to the guard and office PCs -->
+            <rect class="s" x="24" y="66" width="92" height="58" rx="7"/>
+            <rect class="s" x="36" y="80" width="18" height="14" rx="3"/>
+            <path class="t" d="M36 87 H54 M45 80 V94 M36 108 H100 M36 116 H78"/>
+            <circle class="t" cx="96" cy="87" r="8"/>
+            <path class="t" d="M124 84 a14 14 0 0 1 0 22 M132 78 a22 22 0 0 1 0 34"/>
+            <rect class="s" x="146" y="50" width="46" height="90" rx="10"/>
+            <path class="s" d="M160 80 a13 13 0 0 1 18 0 M164 86 a7 7 0 0 1 10 0"/>
+            <circle class="f" cx="169" cy="92" r="2.6"/>
+            <circle class="f" cx="169" cy="124" r="4"/>
+            <path class="t" d="M192 95 H222"/>
+            <circle class="f" cx="226" cy="95" r="4.5"/>
+            <path class="t" d="M226 95 V56 H240 M226 95 V134 H240"/>
+            <rect class="s" x="240" y="40" width="58" height="36" rx="4"/>
+            <path class="s" d="M269 76 V84 M259 84 H279"/>
+            <rect class="s" x="240" y="118" width="58" height="36" rx="4"/>
+            <path class="s" d="M269 154 V162 M259 162 H279"/>
+            <text x="269" y="62" text-anchor="middle">guard</text>
+            <text x="269" y="140" text-anchor="middle">office</text>
+          </svg>
+        </div>
+        <p class="tag">Dept. of Chemical Engineering · 2026 · Interactive</p>
+        <h3>Room-access card station</h3>
+        <p>Replaced a paper logbook for 400 students and staff. I tested the hardware, set it up on the department network and trained the guards. Try the demo.</p>
+      </a>
+
+      <a class="card" href="work/house-ledger.html">
+        <div class="art">
+          <svg viewBox="0 0 320 200" aria-hidden="true">
+            <!-- one bill split four ways; three shares paid, one still owed -->
+            <path class="s" d="M116 26 H204 V160 L193 168 L182 160 L171 168 L160 160 L149 168 L138 160 L127 168 L116 160 Z"/>
+            <path class="t" d="M126 44 H194"/>
+            <path class="t" d="M126 62 H168 M126 78 H160 M126 94 H172 M126 110 H156"/>
+            <text x="194" y="66" text-anchor="end">฿</text><text x="194" y="82" text-anchor="end">฿</text>
+            <text x="194" y="98" text-anchor="end">฿</text><text x="194" y="114" text-anchor="end">฿</text>
+            <path class="s" d="M126 136 H194"/>
+            <g>
+              <circle class="w" cx="58" cy="66" r="18"/><circle class="t" cx="58" cy="61" r="5"/><path class="t" d="M48 76 q10 -10 20 0"/>
+              <circle class="w" cx="58" cy="128" r="18"/><circle class="t" cx="58" cy="123" r="5"/><path class="t" d="M48 138 q10 -10 20 0"/>
+              <circle class="w" cx="262" cy="66" r="18"/><circle class="t" cx="262" cy="61" r="5"/><path class="t" d="M252 76 q10 -10 20 0"/>
+              <circle class="w" cx="262" cy="128" r="18"/><circle class="t" cx="262" cy="123" r="5"/><path class="t" d="M252 138 q10 -10 20 0"/>
+            </g>
+            <path class="t" stroke-dasharray="3 4" d="M76 66 H112 M76 128 H112 M208 66 H244 M208 128 H244"/>
+            <circle class="f" cx="72" cy="52" r="7"/><path d="M68.5 52 l2.5 2.5 l4.5 -5" stroke="#fff" stroke-width="2" fill="none"/>
+            <circle class="f" cx="72" cy="114" r="7"/><path d="M68.5 114 l2.5 2.5 l4.5 -5" stroke="#fff" stroke-width="2" fill="none"/>
+            <circle class="f" cx="276" cy="52" r="7"/><path d="M272.5 52 l2.5 2.5 l4.5 -5" stroke="#fff" stroke-width="2" fill="none"/>
+            <circle class="w" cx="276" cy="114" r="7"/><text x="276" y="118" text-anchor="middle">!</text>
+          </svg>
+        </div>
+        <p class="tag">Personal project · Interactive</p>
+        <h3>Bill Tracker, our dorm's bill splitter</h3>
+        <p>Four roommates, six monthly bills, and nobody sure who had already paid. I turned our spreadsheet into a web app everyone can open from their phone.</p>
+      </a>
+
+    </div>
+  </section>
+
+  <section class="section" id="activities">
+    <div class="section-head">
+      <p class="eyebrow">Activities</p>
+      <h2>Around KMUTT and beyond.</h2>
+    </div>
+    <div class="acts">
+      <article class="act">
+        <div class="slot">assets/roadshow.jpg<img src="assets/roadshow.jpg" alt="Filtration workshop at Assumption College Rayong" onerror="this.remove()"></div>
+        <p class="when">Sep 2026</p>
+        <h3>ChemEng Roadshow, Assumption College Rayong</h3>
+        <p>Introduced the department and ran a hands-on filtration workshop for 30 high-school students.</p>
+      </article>
+      <article class="act">
+        <div class="slot">assets/tea.webp<img src="assets/tea.webp" alt="Photo collage from the Thailand Energy Academy energy science programme, 2024" onerror="this.remove()"></div>
+        <p class="when">2024</p>
+        <h3>Thailand Energy Academy (TEA)</h3>
+        <p>An energy science programme for university students, run by the Thailand Energy Academy. Our team won third prize.</p>
+      </article>
+      <article class="act">
+        <div class="slot">assets/openhouse-2024.webp<img src="assets/openhouse-2024.webp" alt="Photo collage from the KMUTT Chemical Engineering Open House 2024" onerror="this.remove()"></div>
+        <p class="when">Oct 2024</p>
+        <h3>ChemEng Open House, KMUTT</h3>
+        <p>Student speaker, presenting the department to 40+ prospective students.</p>
+      </article>
+    </div>
+  </section>
+
+  <section class="section" id="about">
+    <div class="section-head">
+      <p class="eyebrow">About</p>
+      <h2>The short version of my CV.</h2>
+    </div>
+    <div class="about">
+      <div>
+        <h3>Experience</h3>
+        <div class="entry"><b>Technologist Intern, Process Technology · Thaioil</b><span>Sriracha, Chonburi · Jun – Nov 2025</span>
+          <p>Built a rigorous HYSYS model of a crude distillation, vacuum distillation and hydrotreating train, validated to within 5% of plant operation. Quantified preheat-train fouling, and found a splitter overhead-pressure setpoint worth an estimated six figures (USD) a year.</p></div>
+        <h3 style="margin-top:36px">Education</h3>
+        <div class="entry"><b>M.Eng. Chemical Engineering, ChEPS · KMUTT</b><span>2026 – 2028 (expected) · modelled on MIT's Practice School, Year 2 on-site in industry</span></div>
+        <div class="entry"><b>B.Eng. Chemical Engineering · KMUTT</b><span>2022 – 2026 · GPA 3.70, First-Class Honours · Petroleum &amp; Petrochemical track</span></div>
+      </div>
+      <div>
+        <h3>Tools I use</h3>
+        <div class="chips">
+          <span>Aspen HYSYS</span><span>Aspen Plus</span><span>Aspen EDR</span><span>Aspen Energy Analyzer</span><span>Python</span><span>Power BI</span><span>Excel Solver</span><span>Claude Code</span>
+        </div>
+        <h3 style="margin-top:36px">Good at</h3>
+        <div class="chips">
+          <span>Plant-data model validation</span><span>Heat-exchanger fouling analysis</span><span>Pinch analysis</span><span>Process economics</span><span>Explaining things to non-engineers</span>
+        </div>
+        <h3 style="margin-top:36px">Languages</h3>
+        <p>Thai (native) · English, TOEIC 950 / 990 (CEFR C1)</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="contact" id="contact">
+    <h2>Have a placement for June 2027?</h2>
+    <p>I'm looking for a 12-month on-site internship in process engineering. Email is the best way to reach me.</p>
+    <p class="mail">poomza54564@gmail.com</p>
+    <div class="actions">
+      <a class="btn light" href="mailto:poomza54564@gmail.com">Send an email</a>
+      <a class="btn ghost" href="Ratchaphon_Resume.pdf" target="_blank" rel="noopener">View CV</a>
+      <!-- <a class="btn ghost" href="https://www.linkedin.com/in/YOUR-HANDLE" target="_blank" rel="noopener">LinkedIn</a> -->
+    </div>
+  </section>
+
+  <footer><span>© 2026 Ratchaphon Phonpoon</span><span>Built with plain HTML and Claude Code</span></footer>
+</main>
+</body>
+</html>

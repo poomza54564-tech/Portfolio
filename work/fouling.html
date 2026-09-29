@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Preheat-Train Fouling · Ratchaphon Phonpoon</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&family=Kalam&family=Anuphan:wght@400;600&display=swap">
+<link rel="stylesheet" href="../style.css?v=3">
+<style>
+.dash { border: 1.5px solid var(--ink); border-radius: 20px; overflow: hidden; display: grid; grid-template-columns: 320px 1fr; background: #fff; }
+@media (max-width: 900px) { .dash { grid-template-columns: 1fr; } }
+.dash .in { background: var(--tint); padding: 22px; display: grid; gap: 16px; align-content: start; }
+.dash .in h3, .dash .out h3 { font: 500 12px/1.2 var(--mono); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }
+.pair { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.num label { display: block; font-size: 13.5px; font-weight: 500; color: var(--ink); margin-bottom: 4px; }
+.num input { width: 100%; font: 500 16px var(--mono); padding: 8px 10px; border: 1.5px solid #f2c4b0; border-radius: 10px; background: #fff; color: var(--ink); }
+.num input:focus { border-color: var(--orange); outline: none; }
+.range label { display: flex; justify-content: space-between; gap: 8px; font-size: 13.5px; font-weight: 500; color: var(--ink); }
+.range output { font: 500 13.5px var(--mono); color: var(--orange-ink); }
+.range input { width: 100%; accent-color: var(--orange); }
+.dash .out { padding: 22px; display: grid; gap: 18px; min-width: 0; }
+.status { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.pill { font: 600 13px/1 var(--sans); padding: 8px 12px; border-radius: 999px; }
+.pill.ok { background: #e3f4e8; color: #19663a; }
+.pill.warn { background: #fff1d6; color: #8a5a00; }
+.pill.bad { background: #fde2df; color: #a8231a; }
+.pill.err { background: #fde2df; color: #a8231a; }
+.kpis { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--rule); border: 1px solid var(--rule); border-radius: 12px; overflow: hidden; }
+@media (max-width: 560px) { .kpis { grid-template-columns: 1fr 1fr; } }
+.kpis div { background: #fff; padding: 12px 14px; }
+.kpis dt { font-size: 12.5px; color: var(--muted); }
+.kpis dd { margin: 4px 0 0; font: 500 21px/1.2 var(--mono); color: var(--ink); font-variant-numeric: tabular-nums; }
+.kpis dd small { font-size: 12px; color: var(--muted); }
+.kpis .hl dd { color: var(--orange-ink); }
+.chart { width: 100%; height: auto; display: block; }
+.chart text { font: 11px var(--mono); fill: var(--muted); }
+.chart .g { stroke: var(--rule); }
+.chart .lim { stroke: #a8231a; stroke-dasharray: 5 4; }
+.chart .ln { fill: none; stroke: var(--orange); stroke-width: 2; }
+.chart .pt { fill: #fff; stroke: var(--orange); stroke-width: 2; }
+.chart .now { fill: var(--orange); stroke: #fff; stroke-width: 2; }
+details { font-size: 14.5px; }
+summary { cursor: pointer; font-weight: 600; color: var(--ink); }
+.eq { font: 13px/1.9 var(--mono); margin-top: 10px; overflow-x: auto; }
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap"><a class="brand" href="../index.html"><i>RP</i>Ratchaphon P.</a><nav><a href="../index.html#work">Work</a><a class="cv" href="../Ratchaphon_Resume.pdf" target="_blank" rel="noopener">CV (PDF)</a></nav></div></header>
+
+<main class="wrap">
+  <a class="back" href="../index.html#work">All work</a>
+  <div class="page-head">
+    <p class="eyebrow">Thaioil · Technologist Intern · Jun – Nov 2025</p>
+    <h1>Finding fouling in a crude preheat train</h1>
+    <p class="lede">Before crude reaches the furnace, a train of heat exchangers warms it using hot product streams. As deposits build up on the tubes, less heat gets across and the furnace has to burn more fuel. I built a simulation that tells you how fouled each exchanger is, using only the temperatures the plant already measures.</p>
+    <div class="meta"><span>Aspen EDR</span><span>Aspen HYSYS</span><span>Plant data</span><span>Energy analysis</span></div>
+  </div>
+
+  <div class="block">
+    <div class="prose">
+      <h2 style="margin-top:0">What I did</h2>
+      <ul>
+        <li>Built rigorous models of the preheat exchangers in Aspen EDR, using each exchanger's real geometry.</li>
+        <li>Fed the models the current operating inlet and outlet temperatures, then found the fouling resistance that makes the model match what the plant is actually doing.</li>
+        <li>Used the results to estimate the energy lost to fouling across the train and to support planning of exchanger cleaning, so the worst exchangers get cleaned first.</li>
+      </ul>
+      <p class="note">This work was the basis of my B.Eng. senior project. Plant data and results belong to Thaioil and are not shown here.</p>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="prose">
+      <h2 style="margin-top:0">Try the idea</h2>
+      <p>This is a simplified version of the same method for one exchanger. Enter four measured temperatures and it works backwards to the fouling resistance. The real work used rigorous EDR models; this page uses a plain energy balance and LMTD, with made-up example numbers.</p>
+    </div>
+
+    <div class="dash">
+      <div class="in">
+        <h3>Measured today</h3>
+        <div class="pair">
+          <div class="num"><label for="thi">Hot in, °C</label><input id="thi" type="number" value="340" step="1"></div>
+          <div class="num"><label for="tho">Hot out, °C</label><input id="tho" type="number" value="265" step="1"></div>
+          <div class="num"><label for="tci">Crude in, °C</label><input id="tci" type="number" value="215" step="1"></div>
+          <div class="num"><label for="tco">Crude out, °C</label><input id="tco" type="number" value="262" step="1"></div>
+        </div>
+        <div class="num"><label for="mc">Crude flow, kg/s</label><input id="mc" type="number" value="156" step="1" min="1"></div>
+        <h3 style="margin-top:6px">Exchanger (example)</h3>
+        <div class="pair">
+          <div class="num"><label for="area">Area, m²</label><input id="area" type="number" value="800" step="10" min="1"></div>
+          <div class="num"><label for="uc">U clean, W/m²·K</label><input id="uc" type="number" value="550" step="10" min="1"></div>
+        </div>
+        <div class="range"><label for="fuel">Furnace fuel price <output id="fuel-o"></output></label><input id="fuel" type="range" min="4" max="16" step="0.5" value="8"></div>
+      </div>
+
+      <div class="out">
+        <div class="status"><span class="pill" id="pill"></span><span class="note" id="msg"></span></div>
+        <dl class="kpis">
+          <div class="hl"><dt>Fouling resistance</dt><dd id="k-rf"></dd></div>
+          <div><dt>U, fouled vs clean</dt><dd id="k-u"></dd></div>
+          <div><dt>Heat duty now</dt><dd id="k-q"></dd></div>
+          <div><dt>LMTD</dt><dd id="k-lmtd"></dd></div>
+          <div><dt>Heat lost to fouling</dt><dd id="k-lost"></dd></div>
+          <div class="hl"><dt>Extra furnace fuel</dt><dd id="k-cost"></dd></div>
+        </dl>
+        <svg class="chart" id="chart" viewBox="0 0 600 240" role="img" aria-label="Fouling resistance over the past year with today's reading"></svg>
+        <details>
+          <summary>How this is calculated</summary>
+          <div class="eq">
+            Q = ṁ<sub>crude</sub> · c<sub>p</sub> · (T<sub>crude,out</sub> − T<sub>crude,in</sub>), &nbsp;c<sub>p</sub> = 2.5 kJ/kg·K<br>
+            LMTD (counter-current) = (ΔT<sub>1</sub> − ΔT<sub>2</sub>) / ln(ΔT<sub>1</sub>/ΔT<sub>2</sub>), &nbsp;ΔT<sub>1</sub> = T<sub>hot,in</sub> − T<sub>crude,out</sub>, ΔT<sub>2</sub> = T<sub>hot,out</sub> − T<sub>crude,in</sub><br>
+            U = Q / (A · LMTD), &nbsp;R<sub>f</sub> = 1/U − 1/U<sub>clean</sub><br>
+            Clean duty: ε-NTU with U<sub>clean</sub> at today's inlet temperatures and flows<br>
+            Extra fuel = (Q<sub>clean</sub> − Q) / 0.85 furnace efficiency × 8,400 h/yr × fuel price
+          </div>
+        </details>
+      </div>
+    </div>
+    <p class="note">The trend shows an invented year of readings, with a cleaning in July, so today's value has something to be compared with. The cleaning trigger at 0.0012 m²·K/W is an example, not a plant limit.</p>
+  </div>
+</main>
+
+<footer class="wrap"><span>© 2026 Ratchaphon Phonpoon</span><a href="../index.html">Back to home</a></footer>
+
+<script>
+const CP = 2500, ETA = 0.85, HOURS = 8400, TRIGGER = 0.0012;
+const $ = id => document.getElementById(id);
+const f = (n, d = 0) => n.toLocaleString("en-US", { minimumFractionDigits: d, maximumFractionDigits: d });
+
+// Back-calculate fouling from four temperatures (the idea behind the EDR work, simplified).
+function foulingFrom(t) {
+  const { thi, tho, tci, tco, mc, area, uc } = t;
+  if (!(thi > tho && tco > tci)) return { error: "Hot side must cool down and crude must heat up." };
+  if (!(thi > tco && tho > tci)) return { error: "Temperatures cross: the hot stream must stay hotter than the crude at both ends." };
+  const Q = mc * CP * (tco - tci);
+  const d1 = thi - tco, d2 = tho - tci;
+  const lmtd = Math.abs(d1 - d2) < 1e-6 ? d1 : (d1 - d2) / Math.log(d1 / d2);
+  const U = Q / (area * lmtd);
+  const rf = 1 / U - 1 / uc;
+  // what a clean exchanger would transfer at today's inlets and flows (counter-current e-NTU)
+  const Cc = mc * CP, Ch = Q / (thi - tho), Cmin = Math.min(Cc, Ch), Cr = Cmin / Math.max(Cc, Ch);
+  const ntu = uc * area / Cmin, x = Math.exp(-ntu * (1 - Cr));
+  const eff = Math.abs(1 - Cr) < 1e-9 ? ntu / (1 + ntu) : (1 - x) / (1 - Cr * x);
+  const Qclean = eff * Cmin * (thi - tci);
+  return { Q, lmtd, U, rf, Qclean };
+}
+
+// invented year: fouling rises asymptotically (Kern-Seaton), reset by a cleaning in July
+const MONTHS = ["Oct", "Nov", "Dec", "Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep"];
+const HISTORY = MONTHS.map((m, i) => {
+  const t = i < 9 ? i + 6 : i - 9 + 0.3;
+  return [m, 0.00135 * (1 - Math.exp(-t / 6)) + (i % 3 - 1) * 0.00003];
+});
+
+function update() {
+  const t = Object.fromEntries(["thi", "tho", "tci", "tco", "mc", "area", "uc"].map(k => [k, parseFloat($(k).value)]));
+  const price = +$("fuel").value;
+  $("fuel-o").textContent = "$" + price.toFixed(1) + " /MMBtu";
+  const r = foulingFrom(t);
+  const pill = $("pill");
+  if (r.error || Object.values(t).some(v => !isFinite(v))) {
+    pill.className = "pill err"; pill.textContent = "Check inputs"; $("msg").textContent = r.error || "Fill in every field.";
+    ["k-rf", "k-u", "k-q", "k-lmtd", "k-lost", "k-cost"].forEach(k => $(k).textContent = "–");
+    drawChart(null); return;
+  }
+  const rf = Math.max(r.rf, 0);
+  const lost = Math.max(r.Qclean - r.Q, 0) / 1e6;
+  const cost = lost / ETA * 3.412142 * price * HOURS;
+  const [cls, label, msg] = r.rf < 0.0006 ? ["ok", "Running clean", "Close to design performance."]
+    : r.rf < TRIGGER ? ["warn", "Watch", "Fouling is building. Keep trending it."]
+    : ["bad", "Plan a cleaning", "Past the example cleaning trigger."];
+  pill.className = "pill " + cls; pill.textContent = label; $("msg").textContent = r.rf < 0 ? "Measured U is above the clean value: check the U-clean basis." : msg;
+  $("k-rf").innerHTML = f(rf, 5) + " <small>m²·K/W</small>";
+  $("k-u").innerHTML = f(r.U) + " <small>/ " + f(t.uc) + "</small>";
+  $("k-q").innerHTML = f(r.Q / 1e6, 1) + " <small>MW</small>";
+  $("k-lmtd").innerHTML = f(r.lmtd, 1) + " <small>°C</small>";
+  $("k-lost").innerHTML = f(lost, 2) + " <small>MW</small>";
+  $("k-cost").innerHTML = "$" + f(cost / 1e6, 2) + "M <small>/yr</small>";
+  drawChart(rf);
+}
+
+function drawChart(today) {
+  const W = 600, H = 240, L = 62, R = 16, T = 18, B = 34;
+  const pts = HISTORY.concat([["Today", today]]);
+  const top = Math.max(0.0016, (today || 0) * 1.1);
+  const step = top > 0.0032 ? 0.001 : top > 0.0024 ? 0.0006 : 0.0004;
+  const yMax = Math.ceil(top / step) * step;
+  const sx = i => L + (W - L - R) * i / (pts.length - 1);
+  const sy = v => T + (H - T - B) * (1 - v / yMax);
+  let s = "";
+  for (let v = 0; v <= yMax + 1e-12; v += step) s += `<line class="g" x1="${L}" x2="${W - R}" y1="${sy(v)}" y2="${sy(v)}"/><text x="${L - 8}" y="${sy(v) + 4}" text-anchor="end">${v.toFixed(4)}</text>`;
+  pts.forEach((p, i) => { s += `<text x="${sx(i)}" y="${H - 12}" text-anchor="middle"${p[0] === "Today" ? ' style="fill:var(--orange-ink);font-weight:600"' : ""}>${p[0]}</text>`; });
+  s += `<line class="lim" x1="${L}" x2="${W - R}" y1="${sy(TRIGGER)}" y2="${sy(TRIGGER)}"/><text x="${W - R}" y="${sy(TRIGGER) - 6}" text-anchor="end" style="fill:#a8231a">cleaning trigger (example)</text>`;
+  const hist = HISTORY.map((p, i) => [sx(i), sy(p[1])]);
+  s += `<path class="ln" d="M${hist.slice(0, 9).map(p => p.join(" ")).join(" L")}"/>`;
+  s += `<path class="ln" d="M${hist.slice(9).map(p => p.join(" ")).join(" L")}"/>`;
+  s += `<text x="${(sx(8) + sx(9)) / 2}" y="${sy(0) - 8}" text-anchor="middle">cleaned</text>`;
+  hist.forEach(p => { s += `<circle class="pt" cx="${p[0]}" cy="${p[1]}" r="3.5"/>`; });
+  if (today != null) {
+    const x = sx(pts.length - 1), y = sy(today);
+    s += `<path class="ln" style="stroke-dasharray:4 4" d="M${hist[hist.length - 1].join(" ")} L${x} ${y}"/><circle class="now" cx="${x}" cy="${y}" r="7"/>`;
+  }
+  s += `<text x="14" y="${T + (H - T - B) / 2}" text-anchor="middle" transform="rotate(-90 14 ${T + (H - T - B) / 2})">R_f, m²·K/W</text>`;
+  $("chart").innerHTML = s;
+}
+
+document.querySelectorAll(".dash input").forEach(el => el.addEventListener("input", update));
+update();
+</script>
+</body>
+</html>

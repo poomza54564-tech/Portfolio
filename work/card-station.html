@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Card Station · Ratchaphon Phonpoon</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&family=Kalam&family=Anuphan:wght@400;600&display=swap">
+<link rel="stylesheet" href="../style.css?v=3">
+</head>
+<body>
+<header class="top"><div class="wrap"><a class="brand" href="../index.html"><i>RP</i>Ratchaphon P.</a><nav><a href="../index.html#built">Things I've built</a><a class="cv" href="../Ratchaphon_Resume.pdf" target="_blank" rel="noopener">CV (PDF)</a></nav></div></header>
+<main class="wrap">
+  <a class="back" href="../index.html#built">All projects</a>
+  <div class="page-head">
+    <p class="eyebrow">Dept. of Chemical Engineering, KMUTT · 2026</p>
+    <h1>Room-access card station</h1>
+    <p class="lede">Students used to sign a paper logbook to use three department rooms: the student lounge, CHEEC and the Knowledge Center. Now they tap their student card, the guard sees who is inside each room, and the office can look up any day's activity. It covers 400 students and staff and has been in daily use since September 2026.</p>
+    <div class="meta"><span>Hardware testing</span><span>Local network setup</span><span>User training</span><span>Python · Flask · SQLite</span></div>
+  </div>
+  <div class="block">
+    <div class="prose">
+      <h2 style="margin-top:0">My part</h2>
+      <ul>
+        <li>Tested the card readers on site and troubleshot the hardware until scans came through reliably, about 50 a day.</li>
+        <li>Set the system up on the department's local network, so the guard's PC and the office PC share one database.</li>
+        <li>Trained the security guards and office staff, and made a one-page Thai/English guide that is posted at the guard desk.</li>
+      </ul>
+      <p>The software was written with AI-assisted coding (Claude Code). What I brought was knowing what the guards and office actually needed, and getting it working in the real building with real people.</p>
+      <h2>How it works</h2>
+      <p>One small server keeps a log of every tap in and out. Who is inside right now is worked out from that log instead of being stored separately, so the guard's screen and the office's screen can never disagree. Cards expire automatically four years after registration.</p>
+    </div>
+  </div>
+  <div class="block">
+    <h2>On site</h2>
+    <div class="figs">
+      <figure class="fig"><div class="slot" style="aspect-ratio:3/4;background:#fff"><img src="../assets/card-reader-1.jpg" alt="A student card tapped on the USB reader at the guard desk" style="object-fit:cover" onerror="this.remove()"></div><figcaption>Tapping a student card on the reader at the guard desk</figcaption></figure>
+      <figure class="fig"><div class="slot" style="aspect-ratio:3/4;background:#fff"><img src="../assets/card-reader-2.jpg" alt="The guard station running on the desk PC, with the rules poster above it" style="object-fit:cover" onerror="this.remove()"></div><figcaption>The guard station in daily use, with each room and who is inside</figcaption></figure>
+      <figure class="fig"><div class="slot" style="aspect-ratio:1388/2000;background:#fff"><img src="../assets/card-reader-3.jpg" alt="Bilingual poster explaining how to check in and check out" style="object-fit:contain" onerror="this.remove()"></div><figcaption>The one-page guide I made for students, posted at the desk</figcaption></figure>
+    </div>
+    <p class="note">Students' names and ID numbers in these photos are blurred.</p>
+  </div>
+  <div class="block">
+    <div class="callout">
+      <h3>Try it yourself</h3>
+      <p>These are the real pages from the system, running in your browser. Every student, ID and card number in the demo is made up, and nothing is sent anywhere.</p>
+      <ol class="steps">
+        <li><span>Open the <b>guard station</b>, pick a room, then click one of the test cards (for example <kbd>0101</kbd>) to check a student in.</span></li>
+        <li><span>Click the same card again to check them out, or type <kbd>9999</kbd> and press Enter to see an unregistered card.</span></li>
+        <li><span>Open the <b>office station</b> to see the tap in today's activity, the calendar heatmap and the card registry.</span></li>
+      </ol>
+      <div class="actions" style="margin-top:6px">
+        <a class="btn primary arrow" href="../tools/card-station/guard.html" target="_blank" rel="noopener">Open guard station </a>
+        <a class="btn arrow" href="../tools/card-station/admin.html" target="_blank" rel="noopener">Open office station </a>
+        <button class="btn" type="button" id="reset">Reset demo data</button>
+      </div>
+    </div>
+  </div>
+<script>
+document.getElementById("reset").onclick = function () {
+  try { localStorage.removeItem("card_station_demo_v2"); } catch (e) {}
+  this.textContent = "Demo data reset";
+};
+</script>
+</main>
+<footer class="wrap"><span>© 2026 Ratchaphon Phonpoon</span><a href="../index.html">Back to home</a></footer>
+</body>
+</html>

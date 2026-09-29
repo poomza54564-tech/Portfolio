@@ -1,0 +1,84 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Hydrogen Plant (SMR) · Ratchaphon Phonpoon</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&family=Kalam&family=Anuphan:wght@400;600&display=swap">
+<link rel="stylesheet" href="../style.css?v=3">
+<style>
+.saved { display: grid; grid-template-columns: 260px 1fr; gap: 32px; align-items: center; background: var(--tint); border-radius: 22px; padding: 28px; }
+@media (max-width: 760px) { .saved { grid-template-columns: 1fr; } }
+.big { font: 800 clamp(48px, 7vw, 72px)/1 var(--display); color: var(--orange); letter-spacing: -.02em; }
+.big small { font-size: .4em; color: var(--ink); }
+.bars { display: grid; gap: 18px; }
+.bars h3 { font: 600 16px/1.3 var(--sans); margin-bottom: 8px; }
+.bar { display: grid; grid-template-columns: 150px 1fr 76px; gap: 10px; align-items: center; font-size: 14px; }
+@media (max-width: 560px) { .bar { grid-template-columns: 1fr 64px; } .bar span:first-child { grid-column: 1 / -1; } }
+.bar i { display: block; height: 14px; border-radius: 7px; background: #f3c2ad; }
+.bar.after i { background: var(--orange); }
+.bar b { font: 500 14px var(--mono); color: var(--ink); text-align: right; font-variant-numeric: tabular-nums; }
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap"><a class="brand" href="../index.html"><i>RP</i>Ratchaphon P.</a><nav><a href="../index.html#work">Work</a><a class="cv" href="../Ratchaphon_Resume.pdf" target="_blank" rel="noopener">CV (PDF)</a></nav></div></header>
+<main class="wrap">
+  <a class="back" href="../index.html#work">All work</a>
+  <div class="page-head">
+    <p class="eyebrow">M.Eng. Design Project · 2026 · In progress</p>
+    <h1>Hydrogen plant by steam methane reforming</h1>
+    <p class="lede">Steam methane reforming turns natural gas and steam into hydrogen. Our team is designing the plant end to end. I'm building the Aspen Plus flowsheet and the heat integration.</p>
+    <div class="meta"><span>Aspen Plus</span><span>Reactor kinetics</span><span>Aspen Energy Analyzer</span><span>Pinch analysis</span></div>
+  </div>
+  <dl class="facts" style="margin-bottom:8px">
+    <div><dt>Hydrogen product</dt><dd>1,053 kg/h (≈25 t/day)</dd></div>
+    <div><dt>Purity after PSA</dt><dd>99.99 mol% H₂</dd></div>
+    <div><dt>Steam-to-carbon</dt><dd>2.6</dd></div>
+    <div><dt>Steam raised</dt><dd>13.1 t/h (HP, MP, LP)</dd></div>
+  </dl>
+  <p class="note" style="margin-bottom:28px">From the Aspen Plus results of the current converged flowsheet.</p>
+  <div class="block">
+    <div class="prose">
+      <h2 style="margin-top:0">What I'm doing</h2>
+      <ul>
+        <li>Built the Aspen Plus flowsheet with kinetics from the literature for the primary reformer and the high- and low-temperature shift reactors.</li>
+        <li>Completed a pinch analysis in Aspen Energy Analyzer to set utility targets and guide the heat-exchanger network design.</li>
+        <li>Now sizing equipment and costing streams, and comparing feed-gas sources.</li>
+      </ul>
+    </div>
+  </div>
+  <div class="block">
+    <h2>Energy saved by heat integration</h2>
+    <div class="saved">
+      <div>
+        <p class="big">15.2 <small>MW</small></p>
+        <p style="margin-top:10px">less utility use is possible with full heat recovery: <strong>81%</strong> below what the current flowsheet uses. Heating alone could drop by <strong>90%</strong>.</p>
+      </div>
+      <div class="bars">
+        <div>
+          <h3>Heating utilities</h3>
+          <div class="bar"><span>Current flowsheet</span><i style="width:75.5%"></i><b>8.10 MW</b></div>
+          <div class="bar after"><span>Energy target</span><i style="width:7.6%"></i><b>0.81 MW</b></div>
+        </div>
+        <div>
+          <h3>Cooling utilities</h3>
+          <div class="bar"><span>Current flowsheet</span><i style="width:100%"></i><b>10.73 MW</b></div>
+          <div class="bar after"><span>Energy target</span><i style="width:26.1%"></i><b>2.80 MW</b></div>
+        </div>
+      </div>
+    </div>
+    <div class="prose">
+      <p>Aspen Energy Analyzer compares the heating and cooling the flowsheet uses now ("actual") with the minimum a fully heat-integrated plant would need ("target"). The gap is the heat that could be recovered between process streams instead of being bought as steam or thrown away to cooling water. Values converted from Aspen's cal/s output.</p>
+    </div>
+    <figure class="fig"><div class="slot" style="aspect-ratio:536/270;background:#fff"><img src="../assets/smr-aea.png" alt="Aspen Energy Analyzer bar charts: total, heating and cooling utilities, actual versus target" style="object-fit:contain" onerror="this.remove()"></div><figcaption>Aspen Energy Analyzer: actual vs. target utilities (cal/s)</figcaption></figure>
+  </div>
+  <div class="block">
+    <h2>Flowsheet</h2>
+    <figure class="fig"><div class="slot" style="aspect-ratio:960/520;background:#fff"><img src="../assets/smr-flowsheet.png" alt="SMR plant flowsheet: desulfurizer, pre-reformers, reformer, shift reactors, heat recovery exchangers, separator and PSA" style="object-fit:contain" onerror="this.remove()"></div><figcaption>Desulfurization, pre-reforming and reforming, the shift reactors, heat recovery raising steam (E-100 to E-102), then water knock-out and PSA for hydrogen, with part recycled.</figcaption></figure>
+  </div>
+</main>
+<footer class="wrap"><span>© 2026 Ratchaphon Phonpoon</span><a href="../index.html">Back to home</a></footer>
+</body>
+</html>

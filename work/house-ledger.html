@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Bill Tracker · Ratchaphon Phonpoon</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&family=Kalam&family=Anuphan:wght@400;600&display=swap">
+<link rel="stylesheet" href="../style.css?v=3">
+</head>
+<body>
+<header class="top"><div class="wrap"><a class="brand" href="../index.html"><i>RP</i>Ratchaphon P.</a><nav><a href="../index.html#built">Things I've built</a><a class="cv" href="../Ratchaphon_Resume.pdf" target="_blank" rel="noopener">CV (PDF)</a></nav></div></header>
+<main class="wrap">
+  <a class="back" href="../index.html#built">All projects</a>
+  <div class="page-head">
+    <p class="eyebrow">Personal project</p>
+    <h1>Bill Tracker, our dorm's bill splitter</h1>
+    <p class="lede">A small web app that four roommates use to split rent and bills and keep track of who has paid.</p>
+    <div class="meta"><span>Web app</span><span>Runs on the dorm's Wi-Fi</span><span>Python · Flask · SQLite</span></div>
+  </div>
+  <div class="block">
+    <div class="prose">
+      <h2 style="margin-top:0">How it came to be</h2>
+      <p>My roommates and I share six recurring bills in our dorm: rent, electricity, water, drinking water, internet and YouTube Premium. We tracked them in an Excel spreadsheet, and we kept forgetting who had already paid. I wanted to bring some order to paying the bills.</p>
+      <p>So I turned the spreadsheet into a web app. It runs on a small server on the dorm Wi-Fi, so everyone can open it on their phone, see what they owe this month and tap to mark a share as paid. It's protected by a PIN, and you can attach a photo of your bank-transfer slip as proof.</p>
+      <h2>What I learned</h2>
+      <p>Phones are unreliable clients. Early on, edits made on a phone sometimes disappeared when the browser was put in the background. I had to make sure every change is saved to the server before the page goes to sleep, and that reopening the app never overwrites a change that hasn't been saved yet.</p>
+    </div>
+  </div>
+  <div class="block">
+    <h2>Try it</h2>
+    <p class="note">This copy runs only in your browser. The roommates and amounts in it are made up, not my real roommates. Tap a person under a bill to mark their share as paid.</p>
+    <iframe class="frame" src="../tools/house-ledger/app.html" title="Bill Tracker demo"></iframe>
+    <div class="actions"><a class="btn arrow" href="../tools/house-ledger/app.html" target="_blank" rel="noopener">Open full screen </a></div>
+  </div>
+</main>
+<footer class="wrap"><span>© 2026 Ratchaphon Phonpoon</span><a href="../index.html">Back to home</a></footer>
+</body>
+</html>

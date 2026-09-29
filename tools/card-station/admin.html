@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<script src="demo-api.js?v=2"></script>
+<script src="../demo-banner.js?v=4" data-back="../../work/card-station.html"></script>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1"/>
+<title>Office — Admin</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0a1020; --panel:#121d36; --panel2:#16223f; --card:#1a2746;
+    --line:rgba(255,255,255,.09); --line2:rgba(255,255,255,.16);
+    --txt:#eaf0fb; --mut:#94a6c6; --dim:#6b7c9c;
+    --cyan:#38bdf8; --green:#34d399; --amber:#fbbf24; --red:#fb7185; --violet:#a78bfa;
+  }
+  *{box-sizing:border-box}
+  body{margin:0;background:var(--bg);color:var(--txt);font-family:Inter,system-ui,Arial,sans-serif;-webkit-font-smoothing:antialiased}
+  svg{display:inline-block}
+  .wrap{max-width:1120px;margin:0 auto;min-height:100vh;display:flex}
+  .side{width:78px;background:var(--panel);border-right:1px solid var(--line);display:flex;flex-direction:column;align-items:center;padding:18px 0;gap:10px;flex-shrink:0}
+  .logo{width:46px;height:46px;border-radius:13px;background:var(--violet);display:flex;align-items:center;justify-content:center;color:#1a103a;font-size:24px}
+  .nav{width:46px;height:46px;border-radius:13px;display:flex;align-items:center;justify-content:center;color:var(--dim);font-size:22px;cursor:pointer;transition:.15s;text-decoration:none}
+  .nav:hover{background:var(--panel2);color:var(--txt)}
+  .nav.on{background:rgba(167,139,250,.15);color:var(--violet)}
+  .nav.foot{margin-top:auto;color:var(--amber)}
+  .nav.foot:hover{background:rgba(251,113,133,.15);color:var(--red)}
+  .main{flex:1;padding:22px 26px 26px;min-width:0}
+  .top{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:18px}
+  .title{font-size:24px;font-weight:700;letter-spacing:-.3px}
+  .sub{font-size:13px;color:var(--mut);margin-top:2px}
+  .rightcol{display:flex;flex-direction:column;align-items:flex-end;gap:6px}
+  .clock{font-size:30px;font-weight:700;font-variant-numeric:tabular-nums;line-height:1;text-align:right}
+  .date{font-size:12px;color:var(--mut)}
+  .net{display:inline-flex;align-items:center;gap:7px;font-size:12px;font-weight:600;padding:5px 10px;border-radius:20px;border:1px solid var(--line2);color:var(--mut)}
+  .net .dot{width:9px;height:9px;border-radius:50%;background:var(--dim)}
+  .net.online{color:var(--green);border-color:rgba(52,211,153,.4)} .net.online .dot{background:var(--green)}
+  .net.offline{color:var(--red);border-color:rgba(251,113,133,.45)} .net.offline .dot{background:var(--red)}
+  .grid{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:14px}
+  .card{background:var(--panel2);border:1px solid var(--line);border-radius:16px;padding:18px 20px}
+  .card h2{margin:0 0 14px;font-size:16px;font-weight:600;display:flex;align-items:center;gap:8px}
+  .field{margin-bottom:12px}
+  .field label{font-size:12px;color:var(--mut);display:block;margin-bottom:5px}
+  .field input{width:100%;height:42px;background:var(--bg);border:1px solid var(--line2);color:var(--txt);border-radius:10px;padding:0 12px;font-size:15px;font-family:inherit;outline:none}
+  .field input:focus{border-color:var(--violet)}
+  .btn{height:44px;padding:0 18px;border-radius:11px;border:1px solid var(--line2);background:transparent;color:var(--txt);font-size:14px;font-weight:600;cursor:pointer;font-family:inherit;display:inline-flex;align-items:center;gap:7px}
+  .btn.primary{background:var(--violet);border-color:var(--violet);color:#1a103a;width:100%;justify-content:center}
+  .msg{margin-top:12px;font-size:13px;padding:10px 12px;border-radius:10px;display:none}
+  .msg.show{display:block}
+  .msg.ok{background:rgba(52,211,153,.12);color:var(--green);border:1px solid rgba(52,211,153,.4)}
+  .msg.err{background:rgba(251,113,133,.12);color:var(--red);border:1px solid rgba(251,113,133,.45)}
+  .logwrap{max-height:300px;overflow:auto;display:flex;flex-direction:column;gap:6px}
+  .logrow{display:flex;align-items:center;gap:10px;padding:8px 10px;border-radius:10px;background:var(--card)}
+  .badge{font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px}
+  .badge.in{background:rgba(52,211,153,.18);color:var(--green)} .badge.out{background:rgba(251,191,36,.18);color:var(--amber)}
+  .logrow .who{font-size:13px;font-weight:500} .logrow .meta{font-size:11px;color:var(--mut)}
+  .logrow .t{margin-left:auto;font-size:11px;color:var(--dim);font-variant-numeric:tabular-nums}
+  .tablecard{background:var(--panel2);border:1px solid var(--line);border-radius:16px;padding:18px 20px}
+  .tablehead{display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:12px;flex-wrap:wrap}
+  .tablehead h2{margin:0;font-size:16px;font-weight:600;display:flex;align-items:center;gap:8px}
+  .search{display:flex;align-items:center;gap:8px;background:var(--bg);border:1px solid var(--line2);border-radius:10px;padding:0 12px;height:40px;min-width:240px}
+  .search input{flex:1;background:transparent;border:0;outline:none;color:var(--txt);font-size:14px;font-family:inherit}
+  .search svg{color:var(--mut)}
+  table{width:100%;border-collapse:collapse;font-size:13px}
+  thead th{text-align:left;color:var(--mut);font-weight:600;font-size:12px;text-transform:uppercase;letter-spacing:.5px;padding:8px 10px;border-bottom:1px solid var(--line)}
+  tbody td{padding:9px 10px;border-bottom:1px solid var(--line)}
+  tbody tr:hover{background:var(--card)}
+  .mono{font-family:ui-monospace,Menlo,Consolas,monospace;color:var(--cyan)}
+  .muted{color:var(--mut)}
+  .emptyrow{color:var(--dim);text-align:center;padding:18px}
+  .cmsgrid{display:grid;grid-template-columns:1fr 1fr;gap:18px}
+  .bgprev{height:120px;border:1px dashed var(--line2);border-radius:12px;background:var(--bg) center/cover no-repeat;display:flex;align-items:center;justify-content:center;margin-bottom:10px}
+  .cmsnote{font-size:11px;color:var(--dim);margin-top:10px}
+  .sbadge{font-size:11px;font-weight:700;padding:3px 9px;border-radius:20px;white-space:nowrap}
+  .sbadge.on{background:rgba(52,211,153,.18);color:var(--green)}
+  .sbadge.exp{background:rgba(251,191,36,.18);color:var(--amber)}
+  .sbadge.off{background:rgba(148,166,198,.16);color:var(--mut)}
+  .rowacts{display:flex;gap:6px;justify-content:flex-end}
+  .iconbtn{width:30px;height:30px;border-radius:8px;border:1px solid var(--line2);background:transparent;color:var(--mut);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;font-size:15px}
+  .iconbtn:hover{border-color:var(--violet);color:var(--violet)}
+  .iconbtn.danger:hover{border-color:var(--red);color:var(--red);background:rgba(251,113,133,.12)}
+  .modal{position:fixed;inset:0;background:rgba(5,9,18,.7);display:none;align-items:center;justify-content:center;z-index:50}
+  .modal.show{display:flex}
+  .sheet{width:380px;max-width:92vw;background:var(--panel);border:1px solid var(--line2);border-radius:18px;padding:22px}
+  .sheet h3{margin:0 0 16px;font-size:18px;font-weight:700;display:flex;align-items:center;gap:8px}
+  .eacts{display:flex;gap:10px;justify-content:flex-end;margin-top:6px}
+  .eacts .btn{height:42px;padding:0 18px}
+  .actbar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin-bottom:12px;flex-wrap:wrap}
+  .actbar .btn{height:36px;padding:0 13px}
+  .actexport{display:flex;align-items:center;gap:8px}
+  .datenav{display:flex;align-items:center;gap:6px;margin-bottom:12px;flex-wrap:wrap}
+  .navbtn{height:34px;min-width:34px;padding:0 8px;border-radius:9px;border:1px solid var(--line2);background:var(--panel2);color:var(--txt);font-size:18px;line-height:1;cursor:pointer;font-family:inherit;display:flex;align-items:center;justify-content:center}
+  .navbtn:hover{border-color:var(--violet);color:var(--violet)}
+  .datenav input[type=date]{height:34px;background:var(--bg);border:1px solid var(--line2);color:var(--txt);border-radius:9px;padding:0 10px;font-size:13px;font-family:inherit;outline:none}
+  .datenav input[type=date]:focus{border-color:var(--violet)}
+  .daybtn{height:34px;padding:0 12px;margin-left:auto}
+  .cal{margin-bottom:14px}
+  .calhead{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+  .calmonth{font-size:14px;font-weight:600}
+  .calgrid{display:grid;grid-template-columns:repeat(7,1fr);gap:4px}
+  .caldow{font-size:10px;color:var(--dim);text-align:center;padding:2px 0}
+  .calcell{aspect-ratio:1;border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:11px;cursor:pointer;border:1px solid var(--line);color:var(--mut);transition:.1s}
+  .calcell:hover{border-color:var(--violet)}
+  .calcell.empty{visibility:hidden;cursor:default;border:0}
+  .calcell.sel{outline:2px solid var(--violet);outline-offset:1px;color:var(--txt);font-weight:700}
+  .callegend{display:flex;align-items:center;gap:4px;justify-content:flex-end;margin-top:8px;font-size:10px;color:var(--dim)}
+  .lg{width:13px;height:13px;border-radius:3px;display:inline-block;border:1px solid var(--line)}
+  .lg0{background:var(--card)} .lg1{background:rgba(167,139,250,.28)} .lg2{background:rgba(167,139,250,.48)} .lg3{background:rgba(167,139,250,.72)} .lg4{background:var(--violet)}
+  @media(max-width:760px){.grid{grid-template-columns:1fr}.cmsgrid{grid-template-columns:1fr}}
+@media(max-width:600px){.side{width:56px}.main{padding:16px 12px 20px}table{display:block;overflow-x:auto;white-space:nowrap}}
+</style>
+</head>
+<body>
+<div class="wrap">
+  <aside class="side">
+    <div class="logo" data-i="id"></div>
+    <a class="nav" data-i="scan" title="Guard station" href="guard.html"></a>
+    <div class="nav on" data-i="users" title="Office / Admin"></div>
+    <div class="nav" title="Account settings" id="account-btn"></div>
+    <div class="nav foot" data-i="logout" title="Log out" id="logout"></div>
+  </aside>
+
+  <main class="main">
+    <div class="top">
+      <div>
+        <div class="title">Office — Admin</div>
+        <div class="sub">Department of Chemical Engineering · Card registration &amp; records</div>
+      </div>
+      <div class="rightcol">
+        <div class="clock" id="clock">--:--:--</div>
+        <div class="date" id="date"></div>
+        <div class="net" id="net"><span class="dot"></span><span id="net-t">Connecting…</span></div>
+      </div>
+    </div>
+
+    <div class="grid">
+      <div class="card">
+        <h2><span data-i="plus"></span> Register new card</h2>
+        <div class="field"><label>Card number</label><input id="f-card" placeholder="e.g. 0000000109" autocomplete="off"/></div>
+        <div class="field"><label>Student ID</label><input id="f-sid" placeholder="e.g. 6312345" autocomplete="off"/></div>
+        <div class="field"><label>Full name</label><input id="f-name" placeholder="e.g. Somchai Jaidee" autocomplete="off"/></div>
+        <button class="btn primary" id="f-save"><span data-i="check"></span> Register card</button>
+        <div class="msg" id="f-msg"></div>
+      </div>
+
+      <div class="card">
+        <div class="actbar">
+          <h2 style="margin:0"><span data-i="clock"></span> Activity <span id="ev-count" class="muted" style="font-weight:400;font-size:13px"></span></h2>
+          <div class="actexport">
+            <button class="btn" id="exp-btn" title="Export the selected day"><span data-i="download"></span> Day</button>
+            <button class="btn" id="exp-month-btn" title="Export the whole month shown in the calendar"><span data-i="download"></span> Month</button>
+          </div>
+        </div>
+        <div class="datenav">
+          <button class="navbtn" id="day-prev" title="Previous day">&lsaquo;</button>
+          <input type="date" id="act-date" title="Pick a day"/>
+          <button class="navbtn" id="day-next" title="Next day">&rsaquo;</button>
+          <button class="btn daybtn" id="act-today">Today</button>
+        </div>
+        <div class="cal">
+          <div class="calhead">
+            <button class="navbtn" id="mon-prev" title="Previous month">&lsaquo;</button>
+            <div id="calmonth" class="calmonth"></div>
+            <button class="navbtn" id="mon-next" title="Next month">&rsaquo;</button>
+          </div>
+          <div class="calgrid" id="calgrid"></div>
+          <div class="callegend"><span>Less</span><i class="lg lg0"></i><i class="lg lg1"></i><i class="lg lg2"></i><i class="lg lg3"></i><i class="lg lg4"></i><span>More</span></div>
+        </div>
+        <div id="exp-msg" class="msg"></div>
+        <div class="logwrap" id="log"><div class="emptyrow">Loading…</div></div>
+      </div>
+    </div>
+
+    <div class="tablecard" style="margin-bottom:14px">
+      <div class="tablehead"><h2><span data-i="image"></span> Dashboard appearance</h2></div>
+      <div class="cmsgrid">
+        <div>
+          <div class="field"><label>Dashboard title</label><input id="cms-title" placeholder="Card Station"/></div>
+          <div class="field"><label>Room 1 name</label><input id="cms-room0"/></div>
+          <div class="field"><label>Room 2 name</label><input id="cms-room1"/></div>
+          <div class="field"><label>Room 3 name</label><input id="cms-room2"/></div>
+          <button class="btn primary" id="cms-save"><span data-i="check"></span> Save changes</button>
+          <div class="msg" id="cms-msg"></div>
+        </div>
+        <div>
+          <div class="field" style="margin-bottom:6px"><label>Background image (guard dashboard)</label></div>
+          <div class="bgprev" id="cms-bgprev"><span class="muted">No background set</span></div>
+          <input type="file" id="cms-bgfile" accept="image/png,image/jpeg,image/gif,image/webp" style="font-size:13px;color:var(--mut)"/>
+          <div style="display:flex;gap:8px;margin-top:10px">
+            <button class="btn" id="cms-bgupload"><span data-i="image"></span> Upload</button>
+            <button class="btn" id="cms-bgclear">Remove</button>
+          </div>
+          <div class="msg" id="cms-bgmsg"></div>
+        </div>
+      </div>
+      <div class="cmsnote">Renaming a room hides anyone currently checked in under the old name until they check out. Changes appear on the guard dashboard within a few seconds.</div>
+    </div>
+
+    <div class="tablecard">
+      <div class="tablehead">
+        <h2><span data-i="id"></span> Registered cards <span id="stu-count" class="muted" style="font-weight:400;font-size:13px"></span></h2>
+        <div class="search"><span data-i="search"></span><input id="q" placeholder="Search by name, ID or card…"/></div>
+      </div>
+      <table>
+        <thead><tr><th>Card</th><th>Student ID</th><th>Name</th><th>Registered</th><th>Status</th><th></th></tr></thead>
+        <tbody id="rows"><tr><td colspan="6" class="emptyrow">Loading…</td></tr></tbody>
+      </table>
+      <div class="cmsnote">Cards expire automatically 4 years after registration. Use <b>Deactivate</b> for graduated/lost cards (keeps history); <b>Delete</b> only for mistakes.</div>
+    </div>
+  </main>
+</div>
+
+<div class="modal" id="edit-modal">
+  <div class="sheet">
+    <h3><span data-i="edit"></span> Edit card</h3>
+    <div class="field"><label>Card number</label><input id="e-card" readonly/></div>
+    <div class="field"><label>Student ID</label><input id="e-sid" autocomplete="off"/></div>
+    <div class="field"><label>Full name</label><input id="e-name" autocomplete="off"/></div>
+    <div class="msg" id="e-msg"></div>
+    <div class="eacts"><button class="btn" id="e-cancel">Cancel</button><button class="btn primary" id="e-save"><span data-i="check"></span> Save</button></div>
+  </div>
+</div>
+
+<script>
+const API = location.protocol === "file:" ? "http://127.0.0.1:5000" : "";
+const ICONS={
+ id:'<rect x="3" y="5" width="18" height="14" rx="2"/><circle cx="9" cy="12" r="2.2"/><path d="M14 10h4M14 14h4M6.6 16.2a3 3 0 0 1 4.8 0"/>',
+ scan:'<path d="M4 8V5a1 1 0 0 1 1-1h3M16 4h3a1 1 0 0 1 1 1v3M20 16v3a1 1 0 0 1-1 1h-3M8 20H5a1 1 0 0 1-1-1v-3M4 12h16"/>',
+ users:'<circle cx="9" cy="8" r="3"/><path d="M3.5 20a5.5 5.5 0 0 1 11 0"/><path d="M16 5.2a3 3 0 0 1 0 5.6M20.5 20a5.5 5.5 0 0 0-4-5.3"/>',
+ lock:'<rect x="5" y="11" width="14" height="9" rx="2"/><path d="M8 11V8a4 4 0 0 1 8 0v3"/>',
+ logout:'<path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/><path d="M16 17l5-5-5-5"/><path d="M21 12H9"/>',
+ clock:'<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3.5 2"/>',
+ check:'<path d="M4.5 12.5l4.5 4.5 10-11"/>',
+ plus:'<path d="M12 5v14M5 12h14"/>',
+ image:'<rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.6"/><path d="M21 15l-5-5L5 21"/>',
+ download:'<path d="M12 3v12"/><path d="M7 11l5 5 5-5"/><path d="M5 21h14"/>',
+ search:'<circle cx="11" cy="11" r="7"/><path d="M20.5 20.5l-4.2-4.2"/>',
+ alert:'<path d="M10.3 4.3 2.6 18a2 2 0 0 0 1.7 3h15.4a2 2 0 0 0 1.7-3L13.7 4.3a2 2 0 0 0-3.4 0z"/><path d="M12 9.5v4"/><circle cx="12" cy="17" r="0.7" fill="currentColor" stroke="none"/>',
+ edit:'<path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/>',
+ ban:'<circle cx="12" cy="12" r="9"/><path d="M5.6 5.6l12.8 12.8"/>',
+ power:'<path d="M12 3v9"/><path d="M6.4 6.4a8 8 0 1 0 11.2 0"/>',
+ trash:'<path d="M4 7h16"/><path d="M10 11v6M14 11v6"/><path d="M6 7l1 13a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-13"/><path d="M9 7V4a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v3"/>'
+};
+function svg(n){return '<svg viewBox="0 0 24 24" width="1em" height="1em" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:-0.125em">'+(ICONS[n]||'')+'</svg>';}
+function fillIcons(r){(r||document).querySelectorAll('[data-i]').forEach(e=>e.innerHTML=svg(e.getAttribute('data-i')));}
+
+const $=id=>document.getElementById(id);
+const pad=n=>String(n).padStart(2,"0");
+let allStudents=[];
+function tick(){const d=new Date();$("clock").textContent=pad(d.getHours())+":"+pad(d.getMinutes())+":"+pad(d.getSeconds());$("date").textContent=d.toLocaleDateString(undefined,{weekday:"long",day:"numeric",month:"long"});}
+function setOnline(ok){const el=$("net");el.className="net "+(ok?"online":"offline");$("net-t").textContent=ok?"Online":"Offline";}
+function showMsg(kind,text){const m=$("f-msg");m.className="msg show "+kind;m.textContent=text;}
+// --- session: server-side is the real gate; this just keeps the UI honest ---
+async function requireAdmin(){
+  try{
+    const r=await fetch(API+"/api/me",{credentials:"same-origin"});
+    if(!r.ok){ location.replace("index.html"); return false; }
+    const me=await r.json();
+    if(me.role!=="admin"){ location.replace("index.html"); return false; }
+    return true;
+  }catch(e){ location.replace("index.html"); return false; }
+}
+async function logout(){ try{ await fetch(API+"/api/logout",{credentials:"same-origin"}); }catch(e){} location.replace("index.html"); }
+async function api(path,opts){opts=opts||{};opts.credentials="same-origin";const r=await fetch(API+path,opts);if(r.status===401){location.replace("index.html");throw new Error("Unauthorized");}setOnline(true);return r;}
+function esc(s){return (s||"").replace(/[&<>]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;"}[c]));}
+
+async function loadStudents(){
+  try{
+    const r=await api("/api/students");allStudents=await r.json();
+    $("stu-count").textContent="("+allStudents.length+")";
+    renderStudents();
+  }catch(e){ setOnline(false); $("rows").innerHTML='<tr><td colspan="6" class="emptyrow">Cannot reach the server. Is app.py running?</td></tr>'; }
+}
+function statusBadge(s){
+  if(!s.active) return '<span class="sbadge off">Inactive</span>';
+  if(s.expired) return '<span class="sbadge exp">Expired</span>';
+  return '<span class="sbadge on">Active</span>';
+}
+function studentRow(s){
+  const toggle=s.active
+    ? `<button class="iconbtn" data-toggle="${esc(s.card_id)}" data-active="1" title="Deactivate">${svg("ban")}</button>`
+    : `<button class="iconbtn" data-toggle="${esc(s.card_id)}" data-active="0" title="Reactivate">${svg("power")}</button>`;
+  return `<tr>
+    <td class="mono">${esc(s.card_id)}</td>
+    <td>${esc(s.student_id)}</td>
+    <td>${esc(s.name)}</td>
+    <td class="muted">${esc(s.registered_at||"")}</td>
+    <td>${statusBadge(s)}</td>
+    <td><div class="rowacts">
+      <button class="iconbtn" data-edit="${esc(s.card_id)}" title="Edit">${svg("edit")}</button>
+      ${toggle}
+      <button class="iconbtn danger" data-del="${esc(s.card_id)}" title="Delete">${svg("trash")}</button>
+    </div></td>
+  </tr>`;
+}
+function renderStudents(){
+  const q=$("q").value.trim().toLowerCase();
+  const list=allStudents.filter(s=>!q||(s.name+" "+s.student_id+" "+s.card_id).toLowerCase().includes(q));
+  if(!list.length){$("rows").innerHTML='<tr><td colspan="6" class="emptyrow">'+(q?"No matches":"No cards registered yet")+'</td></tr>';return;}
+  $("rows").innerHTML=list.map(studentRow).join("");
+  $("rows").querySelectorAll("[data-edit]").forEach(b=>b.onclick=()=>openEdit(b.dataset.edit));
+  $("rows").querySelectorAll("[data-toggle]").forEach(b=>b.onclick=()=>toggleActive(b.dataset.toggle,b.dataset.active==="1"));
+  $("rows").querySelectorAll("[data-del]").forEach(b=>b.onclick=()=>deleteStudent(b.dataset.del));
+}
+
+// --- student management: edit / deactivate / delete ---
+let editCard=null;
+function findStudent(card){ return allStudents.find(s=>s.card_id===card); }
+function openEdit(card){
+  const s=findStudent(card); if(!s) return;
+  editCard=card;
+  $("e-card").value=s.card_id; $("e-sid").value=s.student_id; $("e-name").value=s.name;
+  $("e-msg").className="msg";
+  $("edit-modal").classList.add("show");
+  setTimeout(()=>$("e-sid").focus(),50);
+}
+function closeEdit(){ $("edit-modal").classList.remove("show"); editCard=null; }
+async function saveEdit(){
+  if(!editCard) return;
+  const sid=$("e-sid").value.trim(), name=$("e-name").value.trim();
+  if(!sid||!name){ $("e-msg").className="msg show err"; $("e-msg").textContent="Student ID and name are required."; return; }
+  try{
+    const r=await api("/api/student/"+encodeURIComponent(editCard),{method:"PATCH",headers:{"Content-Type":"application/json"},body:JSON.stringify({student_id:sid,name:name})});
+    if(!r.ok){ const d=await r.json().catch(()=>({})); throw new Error(d.error||"update failed"); }
+    closeEdit(); loadStudents();
+  }catch(e){ $("e-msg").className="msg show err"; $("e-msg").textContent="Could not save: "+(e.message||e); }
+}
+async function toggleActive(card,isActive){
+  const s=findStudent(card); if(!s) return;
+  const to=!isActive;
+  if(!confirm((to?"Reactivate ":"Deactivate ")+s.name+"? "+(to?"They can check in again.":"They won't be able to check in."))) return;
+  try{
+    const r=await api("/api/student/"+encodeURIComponent(card),{method:"PATCH",headers:{"Content-Type":"application/json"},body:JSON.stringify({active:to})});
+    if(!r.ok) throw new Error("failed"); loadStudents();
+  }catch(e){ showMsg("err","Could not update the card."); }
+}
+async function deleteStudent(card){
+  const s=findStudent(card); if(!s) return;
+  if(!confirm("Delete "+s.name+" ("+s.card_id+")?\n\nThis removes the card permanently; past activity stays but will show as unknown. For graduated students, Deactivate is usually better.")) return;
+  try{
+    const r=await api("/api/student/"+encodeURIComponent(card),{method:"DELETE"});
+    if(!r.ok) throw new Error("failed"); loadStudents();
+  }catch(e){ showMsg("err","Could not delete the card."); }
+}
+
+async function loadLog(){
+  try{
+    const r=await api("/api/events?date="+encodeURIComponent(actDate));const d=await r.json();
+    const ev=d.events||[];
+    $("ev-count").textContent="("+(d.count!=null?d.count:ev.length)+")";
+    if(!ev.length){$("log").innerHTML='<div class="emptyrow">No activity on this day</div>';return;}
+    $("log").innerHTML=ev.map(e=>{const isIn=e.action==="IN";return `<div class="logrow"><span class="badge ${isIn?'in':'out'}">${isIn?'IN':'OUT'}</span><div><div class="who">${esc(e.name)}</div><div class="meta">${esc(e.student_id)} · ${esc(e.room||'')}</div></div><span class="t">${esc(e.time||'')}</span></div>`;}).join("");
+  }catch(e){ setOnline(false); $("log").innerHTML='<div class="emptyrow">Cannot reach the server.</div>'; }
+}
+
+async function register(){
+  const card=$("f-card").value.trim(),sid=$("f-sid").value.trim(),name=$("f-name").value.trim();
+  if(!card||!sid||!name){ showMsg("err","Please fill in card number, student ID and name."); return; }
+  try{
+    const r=await api("/api/student",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({card_id:card,student_id:sid,name:name})});
+    const d=await r.json();
+    if(r.status===409){ showMsg("err","That card is already registered."); return; }
+    if(!r.ok){ throw new Error(d.error||"registration failed"); }
+    showMsg("ok","Registered "+name+" ("+sid+").");
+    $("f-card").value="";$("f-sid").value="";$("f-name").value="";$("f-card").focus();
+    loadStudents();
+  }catch(e){ setOnline(false); showMsg("err","Could not register: "+(e.message||e)+". Is the server running?"); }
+}
+
+// --- Activity browser: date navigation + colour calendar ---
+function todayStr(){const d=new Date();return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate());}
+function ymd(d){return d.getFullYear()+"-"+pad(d.getMonth()+1)+"-"+pad(d.getDate());}
+let actDate=todayStr();           // selected day shown in the log + exported
+let calMonth=todayStr().slice(0,7); // YYYY-MM shown in the calendar
+let calCounts={};                  // {YYYY-MM-DD: eventCount} for calMonth
+const LVLBG=["var(--card)","rgba(167,139,250,.28)","rgba(167,139,250,.48)","rgba(167,139,250,.72)","var(--violet)"];
+// Event-count cut-offs for heat levels 1→4. Each student visit is 2 events
+// (in + out), so these are roughly ≤10, ≤25, ≤50, >50 students. Tune freely.
+const HEAT_THRESHOLDS=[20,50,100];
+function levelFor(c){ if(!c) return 0; for(let i=0;i<HEAT_THRESHOLDS.length;i++){ if(c<=HEAT_THRESHOLDS[i]) return i+1; } return HEAT_THRESHOLDS.length+1; }
+
+async function loadCalendar(){
+  try{ const r=await api("/api/activity/summary?month="+calMonth); calCounts=await r.json(); }
+  catch(e){ calCounts={}; }
+  renderCalendar();
+}
+function renderCalendar(){
+  const [y,m]=calMonth.split("-").map(Number);
+  const first=new Date(y,m-1,1);
+  const startDow=(first.getDay()+6)%7;          // Monday = 0
+  const days=new Date(y,m,0).getDate();
+  $("calmonth").textContent=first.toLocaleDateString(undefined,{month:"long",year:"numeric"});
+  let cells=["Mo","Tu","We","Th","Fr","Sa","Su"].map(d=>`<div class="caldow">${d}</div>`).join("");
+  for(let i=0;i<startDow;i++) cells+='<div class="calcell empty"></div>';
+  for(let day=1;day<=days;day++){
+    const ds=calMonth+"-"+pad(day), c=calCounts[ds]||0, lvl=levelFor(c);
+    const dark=lvl>=3?"color:#1a103a;":"";
+    cells+=`<div class="calcell${ds===actDate?' sel':''}" data-d="${ds}" title="${c} event${c===1?'':'s'}" style="background:${LVLBG[lvl]};${dark}">${day}</div>`;
+  }
+  $("calgrid").innerHTML=cells;
+  $("calgrid").querySelectorAll(".calcell[data-d]").forEach(el=>el.onclick=()=>setActDate(el.dataset.d));
+}
+function setActDate(ds){
+  actDate=ds; $("act-date").value=ds;
+  const mon=ds.slice(0,7);
+  if(mon!==calMonth){ calMonth=mon; loadCalendar(); } else { renderCalendar(); }
+  loadLog();
+}
+function shiftDay(delta){ const d=new Date(actDate+"T00:00:00"); d.setDate(d.getDate()+delta); setActDate(ymd(d)); }
+function shiftMonth(delta){ const [y,m]=calMonth.split("-").map(Number); const d=new Date(y,m-1+delta,1); calMonth=ymd(d).slice(0,7); loadCalendar(); }
+
+async function downloadCsv(query, label){
+  const m=$("exp-msg");
+  try{
+    const r=await api("/api/export/events.csv?"+query);
+    if(!r.ok){ const d=await r.json().catch(()=>({})); throw new Error(d.error||("HTTP "+r.status)); }
+    const blob=await r.blob();
+    const url=URL.createObjectURL(blob);
+    const a=document.createElement("a");
+    a.href=url; a.download="activity-"+label+".csv";
+    document.body.appendChild(a); a.click(); a.remove();
+    URL.revokeObjectURL(url);
+    m.className="msg show ok"; m.textContent="Exported activity for "+label+".";
+  }catch(e){ m.className="msg show err"; m.textContent="Export failed: "+(e.message||e); }
+}
+function exportDay(){ downloadCsv("date="+encodeURIComponent(actDate), actDate); }
+function exportMonth(){ downloadCsv("month="+encodeURIComponent(calMonth), calMonth); }
+
+// --- CMS: dashboard appearance ---
+function cmsMsg(id,kind,t){const m=$(id);m.className="msg show "+kind;m.textContent=t;}
+function setBgPreview(url){
+  const el=$("cms-bgprev");
+  if(url){ el.style.backgroundImage="url('"+API+url+"')"; el.innerHTML=""; }
+  else { el.style.backgroundImage="none"; el.innerHTML='<span class="muted">No background set</span>'; }
+}
+async function loadSettings(){
+  try{
+    const r=await api("/api/settings");const s=await r.json();
+    $("cms-title").value=s.dashboard_title||"";
+    (s.rooms||[]).forEach((rm,i)=>{const el=$("cms-room"+i);if(el)el.value=rm.n||"";});
+    setBgPreview(s.background_url);
+  }catch(e){ /* leave fields blank if settings can't load */ }
+}
+async function saveSettings(){
+  const title=$("cms-title").value.trim();
+  const rooms=[$("cms-room0").value.trim(),$("cms-room1").value.trim(),$("cms-room2").value.trim()];
+  try{
+    const r=await api("/api/settings",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({dashboard_title:title,rooms:rooms})});
+    if(!r.ok) throw new Error("save failed");
+    cmsMsg("cms-msg","ok","Saved. The guard dashboard will pick this up shortly.");
+  }catch(e){ cmsMsg("cms-msg","err","Could not save settings. Is the server running?"); }
+}
+async function uploadBg(){
+  const f=$("cms-bgfile").files[0];
+  if(!f){ cmsMsg("cms-bgmsg","err","Choose an image first."); return; }
+  const fd=new FormData(); fd.append("file",f);
+  try{
+    const r=await api("/api/background",{method:"POST",body:fd});
+    const d=await r.json();
+    if(!r.ok) throw new Error(d.error||"upload failed");
+    setBgPreview(d.background_url); $("cms-bgfile").value="";
+    cmsMsg("cms-bgmsg","ok","Background updated.");
+  }catch(e){ cmsMsg("cms-bgmsg","err",String(e.message||e)); }
+}
+async function clearBg(){
+  try{
+    const r=await api("/api/background",{method:"DELETE"});
+    const d=await r.json();
+    setBgPreview(d.background_url);
+    cmsMsg("cms-bgmsg","ok","Background removed.");
+  }catch(e){ cmsMsg("cms-bgmsg","err","Could not remove the background."); }
+}
+
+async function init(){
+  if(!await requireAdmin()) return;
+  fillIcons();tick();setInterval(tick,1000);
+  $("f-save").onclick=register;
+  $("logout").onclick=logout;
+  $("cms-save").onclick=saveSettings;
+  $("cms-bgupload").onclick=uploadBg;
+  $("cms-bgclear").onclick=clearBg;
+  $("exp-btn").onclick=exportDay;
+  $("exp-month-btn").onclick=exportMonth;
+  $("act-date").value=actDate;
+  $("act-date").onchange=()=>{ if($("act-date").value) setActDate($("act-date").value); };
+  $("day-prev").onclick=()=>shiftDay(-1);
+  $("day-next").onclick=()=>shiftDay(1);
+  $("act-today").onclick=()=>setActDate(todayStr());
+  $("mon-prev").onclick=()=>shiftMonth(-1);
+  $("mon-next").onclick=()=>shiftMonth(1);
+  $("e-cancel").onclick=closeEdit;
+  $("e-save").onclick=saveEdit;
+  $("edit-modal").addEventListener("click",e=>{ if(e.target===$("edit-modal")) closeEdit(); });
+  $("e-name").addEventListener("keydown",e=>{ if(e.key==="Enter") saveEdit(); });
+  $("e-sid").addEventListener("keydown",e=>{ if(e.key==="Enter") saveEdit(); });
+  loadSettings();
+  $("q").addEventListener("input",renderStudents);
+  document.querySelectorAll("#f-card,#f-sid,#f-name").forEach(el=>el.addEventListener("keydown",e=>{if(e.key==="Enter")register();}));
+  loadStudents();loadLog();loadCalendar();
+  // refresh the open day's log; refresh the calendar only while viewing this month
+  setInterval(loadLog,5000);
+  setInterval(()=>{ if(calMonth===todayStr().slice(0,7)) loadCalendar(); },30000);
+  setInterval(loadStudents,15000);
+  $("f-card").focus();
+}
+document.addEventListener("DOMContentLoaded",init);
+</script>
+<script src="account.js"></script>
+</body>
+</html>
