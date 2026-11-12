@@ -20,6 +20,20 @@
 .bar i { display: block; height: 14px; border-radius: 7px; background: #f3c2ad; }
 .bar.after i { background: var(--orange); }
 .bar b { font: 500 14px var(--mono); color: var(--ink); text-align: right; font-variant-numeric: tabular-nums; }
+.tablewrap { overflow-x: auto; border: 1px solid var(--rule); border-radius: 14px; }
+.units { width: 100%; border-collapse: collapse; font-size: 14.5px; min-width: 620px; }
+.units th, .units td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--rule); vertical-align: top; }
+.units th { font: 500 11.5px/1.3 var(--mono); letter-spacing: .08em; text-transform: uppercase; color: var(--muted); background: var(--tint); }
+.units tr:last-child td { border-bottom: 0; }
+.units td:first-child { font: 500 13.5px var(--mono); color: var(--orange-ink); white-space: nowrap; }
+.units td.num { font-variant-numeric: tabular-nums; white-space: nowrap; }
+.money { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--rule); border: 1px solid var(--rule); border-radius: 14px; overflow: hidden; }
+@media (max-width: 640px) { .money { grid-template-columns: 1fr 1fr; } }
+.money div { background: #fff; padding: 16px 18px; }
+.money dt { font-size: 13px; color: var(--muted); }
+.money dd { margin: 4px 0 0; font: 700 24px/1.2 var(--display); color: var(--ink); }
+.money dd small { font: 500 13px var(--sans); color: var(--muted); }
+.money .hl dd { color: var(--orange-ink); }
 </style>
 </head>
 <body>
@@ -27,56 +41,99 @@
 <main class="wrap">
   <a class="back" href="../index.html#work">All work</a>
   <div class="page-head">
-    <p class="eyebrow">M.Eng. Design Project · 2026 · In progress</p>
+    <p class="eyebrow">M.Eng. Design Project (CHE654) · 2026 · In progress</p>
     <h1>Hydrogen plant by steam methane reforming</h1>
-    <p class="lede">Steam methane reforming turns natural gas and steam into hydrogen. Our team is designing the plant end to end. I'm building the Aspen Plus flowsheet and the heat integration.</p>
-    <div class="meta"><span>Aspen Plus</span><span>Reactor kinetics</span><span>Aspen Energy Analyzer</span><span>Pinch analysis</span></div>
+    <p class="lede">A plant that turns natural gas and steam into about 213 tonnes of high-purity hydrogen a day. I'm building it in Aspen Plus, from reaction kinetics and heat integration through equipment sizing and costing.</p>
+    <div class="meta"><span>Aspen Plus</span><span>Reactor kinetics</span><span>Aspen Energy Analyzer</span><span>Aspen Process Economic Analyzer</span></div>
   </div>
   <dl class="facts" style="margin-bottom:8px">
-    <div><dt>Hydrogen product</dt><dd>1,053 kg/h (≈25 t/day)</dd></div>
+    <div><dt>Hydrogen product</dt><dd>8,889 kg/h (≈213 t/day)</dd></div>
     <div><dt>Purity after PSA</dt><dd>99.99 mol% H₂</dd></div>
-    <div><dt>Steam-to-carbon</dt><dd>2.6</dd></div>
-    <div><dt>Steam raised</dt><dd>13.1 t/h (HP, MP, LP)</dd></div>
+    <div><dt>Steam-to-carbon</dt><dd>2.5</dd></div>
+    <div><dt>Steam raised</dt><dd>154 t/h (HP, MP, LP)</dd></div>
   </dl>
-  <p class="note" style="margin-bottom:28px">From the Aspen Plus results of the current converged flowsheet.</p>
+  <p class="note" style="margin-bottom:28px">From the optimized Aspen Plus flowsheet (October 2026).</p>
+
   <div class="block">
     <div class="prose">
       <h2 style="margin-top:0">What I'm doing</h2>
       <ul>
-        <li>Built the Aspen Plus flowsheet with kinetics from the literature for the primary reformer and the high- and low-temperature shift reactors.</li>
-        <li>Completed a pinch analysis in Aspen Energy Analyzer to set utility targets and guide the heat-exchanger network design.</li>
-        <li>Now sizing equipment and costing streams, and comparing feed-gas sources.</li>
+        <li>Built the Aspen Plus flowsheet with kinetics from the literature for the reformer and the high- and low-temperature shift reactors.</li>
+        <li>Ran a pinch analysis in Aspen Energy Analyzer to set utility targets and guide heat recovery.</li>
+        <li>Sized the reactors, fired heaters, heat exchangers and PSA beds, and costed the plant in Aspen Process Economic Analyzer.</li>
+        <li>Compared Thai natural-gas sources (Gulf, Myanmar, LNG and pool gas) on price for the feed.</li>
       </ul>
     </div>
   </div>
+
+  <div class="block">
+    <h2>How the plant works</h2>
+    <p style="max-width:68ch">The feed is cleaned, reformed with steam at 900 °C, then shifted to turn carbon monoxide into more hydrogen. The hot gas raises steam at three pressure levels on its way down to 40 °C, and a pressure-swing adsorption unit separates the hydrogen. The two shift reactors cut carbon monoxide from 27.0 to 2.5 t/h.</p>
+    <div class="tablewrap">
+      <table class="units">
+        <thead><tr><th>Unit</th><th>What it does</th><th>Conditions</th></tr></thead>
+        <tbody>
+          <tr><td>D-100</td><td>Desulfurizer, two beds. Removes H₂S that would poison the catalysts.</td><td class="num">370 °C, 30 bar</td></tr>
+          <tr><td>F-100-0/1/2</td><td>Fired heaters that preheat the feed between steps</td><td class="num">to 370, 500 and 620 °C</td></tr>
+          <tr><td>R-100</td><td>Pre-reformer. Breaks down ethane and heavier hydrocarbons.</td><td class="num">500 → 442 °C</td></tr>
+          <tr><td>R-101</td><td>Primary steam reformer</td><td class="num">620 → 900 °C</td></tr>
+          <tr><td>E-100</td><td>Waste-heat boiler, high-pressure steam (95.7 t/h)</td><td class="num">900 → 350 °C, 39 bar steam</td></tr>
+          <tr><td>R-102</td><td>High-temperature shift</td><td class="num">350 → 434 °C</td></tr>
+          <tr><td>E-101</td><td>Medium-pressure steam (32.9 t/h)</td><td class="num">434 → 200 °C, 8.8 bar steam</td></tr>
+          <tr><td>R-103</td><td>Low-temperature shift</td><td class="num">200 → 233 °C</td></tr>
+          <tr><td>E-102</td><td>Low-pressure steam (25.6 t/h)</td><td class="num">233 → 134 °C, 2.3 bar steam</td></tr>
+          <tr><td>E-103</td><td>Air cooler, four bays</td><td class="num">134 → 40 °C</td></tr>
+          <tr><td>V-100</td><td>Knock-out drum that removes condensed water</td><td class="num">40 °C, 26 bar</td></tr>
+          <tr><td>PSA</td><td>Pressure-swing adsorption, five beds</td><td class="num">99.99 mol% H₂ at 24 bar</td></tr>
+          <tr><td>K-100</td><td>Compressor that recycles a little hydrogen to the desulfurizer</td><td class="num">24 → 30 bar</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <div class="block">
+    <h2>Cost and payback</h2>
+    <dl class="money">
+      <div><dt>Equipment cost</dt><dd>$11.1M</dd></div>
+      <div><dt>Installed cost</dt><dd>$16.2M</dd></div>
+      <div><dt>Total capital cost</dt><dd>$36.8M</dd></div>
+      <div><dt>Product sales</dt><dd>$149.6M <small>/ yr</small></dd></div>
+      <div><dt>Operating cost</dt><dd>$81.1M <small>/ yr</small></dd></div>
+      <div class="hl"><dt>Payout period</dt><dd>2.7 years</dd></div>
+    </dl>
+    <p class="note" style="max-width:70ch">From Aspen Process Economic Analyzer, at a 20% required rate of return. Operating cost includes $63.9M/yr of raw materials and $9.2M/yr of utilities. The fired heaters are the most expensive items, together about $7.0M of the $11.1M equipment cost.</p>
+  </div>
+
   <div class="block">
     <h2>Energy saved by heat integration</h2>
     <div class="saved">
       <div>
         <p class="big">15.2 <small>MW</small></p>
-        <p style="margin-top:10px">less utility use is possible with full heat recovery: <strong>81%</strong> below what the current flowsheet uses. Heating alone could drop by <strong>90%</strong>.</p>
+        <p style="margin-top:10px">less utility use is possible with full heat recovery: <strong>81%</strong> below what the flowsheet used. Heating alone could drop by <strong>90%</strong>.</p>
       </div>
       <div class="bars">
         <div>
           <h3>Heating utilities</h3>
-          <div class="bar"><span>Current flowsheet</span><i style="width:75.5%"></i><b>8.10 MW</b></div>
+          <div class="bar"><span>Flowsheet</span><i style="width:75.5%"></i><b>8.10 MW</b></div>
           <div class="bar after"><span>Energy target</span><i style="width:7.6%"></i><b>0.81 MW</b></div>
         </div>
         <div>
           <h3>Cooling utilities</h3>
-          <div class="bar"><span>Current flowsheet</span><i style="width:100%"></i><b>10.73 MW</b></div>
+          <div class="bar"><span>Flowsheet</span><i style="width:100%"></i><b>10.73 MW</b></div>
           <div class="bar after"><span>Energy target</span><i style="width:26.1%"></i><b>2.80 MW</b></div>
         </div>
       </div>
     </div>
     <div class="prose">
-      <p>Aspen Energy Analyzer compares the heating and cooling the flowsheet uses now ("actual") with the minimum a fully heat-integrated plant would need ("target"). The gap is the heat that could be recovered between process streams instead of being bought as steam or thrown away to cooling water. Values converted from Aspen's cal/s output.</p>
+      <p>Aspen Energy Analyzer compares the heating and cooling a flowsheet uses ("actual") with the minimum a fully heat-integrated plant would need ("target"). The gap is heat that could be recovered between process streams instead of being bought as steam or thrown away to cooling water. Values converted from Aspen's cal/s output.</p>
+      <p class="note">These targets are from the September design stage, before the plant was scaled up to its current capacity.</p>
     </div>
-    <figure class="fig"><div class="slot" style="aspect-ratio:536/270;background:#fff"><img src="../assets/smr-aea.png" alt="Aspen Energy Analyzer bar charts: total, heating and cooling utilities, actual versus target" style="object-fit:contain" onerror="this.remove()"></div><figcaption>Aspen Energy Analyzer: actual vs. target utilities (cal/s)</figcaption></figure>
+    <figure class="fig"><div class="slot" style="aspect-ratio:536/270;background:#fff"><img src="../assets/smr-aea.png" alt="Aspen Energy Analyzer bar charts: total, heating and cooling utilities, actual versus target" style="object-fit:contain" onerror="this.remove()"></div><figcaption>Aspen Energy Analyzer: actual vs. target utilities (cal/s), September design stage</figcaption></figure>
   </div>
+
   <div class="block">
     <h2>Flowsheet</h2>
-    <figure class="fig"><div class="slot" style="aspect-ratio:960/520;background:#fff"><img src="../assets/smr-flowsheet.png" alt="SMR plant flowsheet: desulfurizer, pre-reformers, reformer, shift reactors, heat recovery exchangers, separator and PSA" style="object-fit:contain" onerror="this.remove()"></div><figcaption>Desulfurization, pre-reforming and reforming, the shift reactors, heat recovery raising steam (E-100 to E-102), then water knock-out and PSA for hydrogen, with part recycled.</figcaption></figure>
+    <figure class="fig"><div class="slot" style="aspect-ratio:960/520;background:#fff"><img src="../assets/smr-flowsheet.png" alt="SMR plant flowsheet: desulfurizer, pre-reformer, reformer, shift reactors, heat recovery exchangers, separator and PSA" style="object-fit:contain" onerror="this.remove()"></div><figcaption>Desulfurization, pre-reforming and reforming, the shift reactors, heat recovery raising steam, then water knock-out and PSA for hydrogen, with part recycled. September layout.</figcaption></figure>
   </div>
 </main>
 <footer class="wrap"><span>© 2026 Ratchaphon Phonpoon</span><a href="../index.html">Back to home</a></footer>
