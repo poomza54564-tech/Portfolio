@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Department Website · Ratchaphon Phonpoon</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,600;12..96,700;12..96,800&family=Instrument+Sans:wght@400;500;600&family=IBM+Plex+Mono:wght@500&family=Kalam&family=Anuphan:wght@400;600&display=swap">
+<link rel="stylesheet" href="../style.css?v=3">
+<style>
+.shots { display: grid; grid-template-columns: 1fr 230px; gap: 20px; align-items: start; }
+@media (max-width: 760px) { .shots { grid-template-columns: 1fr; } .shots .fig.tall { max-width: 260px; } }
+.feat { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+@media (max-width: 760px) { .feat { grid-template-columns: 1fr; } }
+.feat div { background: var(--tint); border-radius: 16px; padding: 18px 20px; display: grid; gap: 6px; align-content: start; }
+.feat h3 { font-size: 18px; font-weight: 600; }
+</style>
+</head>
+<body>
+<header class="top"><div class="wrap"><a class="brand" href="../index.html"><i>RP</i>Ratchaphon P.</a><nav><a href="../index.html#built">Things I've built</a><a class="cv" href="../Ratchaphon_Resume.pdf" target="_blank" rel="noopener">CV (PDF)</a></nav></div></header>
+<main class="wrap">
+  <a class="back" href="../index.html#built">All projects</a>
+  <div class="page-head">
+    <p class="eyebrow">Dept. of Chemical Engineering, KMUTT · 2026 · In progress</p>
+    <h1>A new website for my department</h1>
+    <p class="lede">A bilingual Thai/English website for the Department of Chemical Engineering at KMUTT, with its own content-management system so staff can update everything themselves. It replaces the department's old WordPress site.</p>
+    <div class="meta"><span>Next.js</span><span>PostgreSQL</span><span>Custom CMS</span><span>Thai / English</span><span>Vercel</span></div>
+    <div class="actions"><a class="btn primary arrow" href="https://chekmutt-web.vercel.app/en" target="_blank" rel="noopener">Visit the staging site </a></div>
+    <p class="note">This is the staging version. The content team is still filling it in, so some items are placeholders, and it's hidden from search engines until the university launches it.</p>
+  </div>
+
+  <div class="block">
+    <div class="shots">
+      <figure class="fig"><div class="slot" style="aspect-ratio:1440/900;background:#fff"><img src="../assets/chekmutt-desktop.jpg" alt="Homepage of the department website on a desktop: a rotating banner with students in front of the department building, and key figures below" style="object-fit:cover;object-position:top" onerror="this.remove()"></div><figcaption>Homepage on desktop</figcaption></figure>
+      <figure class="fig tall"><div class="slot" style="aspect-ratio:390/844;background:#fff"><img src="../assets/chekmutt-mobile.jpg" alt="The same homepage on a phone" style="object-fit:cover;object-position:top" onerror="this.remove()"></div><figcaption>The same page on a phone</figcaption></figure>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="prose">
+      <h2 style="margin-top:0">My part</h2>
+      <ul>
+        <li>Worked out what the department needed: pages for programmes, people, research clusters, news, services, alumni and donations, in both languages.</li>
+        <li>Took the design through several directions with my professor until one was approved, then had it turned into a design system so every page follows it.</li>
+        <li>Tested every page and every admin screen, on desktop and phone, before each round of changes went out.</li>
+        <li>Put the staging site online and set up accounts for the team now writing the content.</li>
+      </ul>
+      <p>The code was written with AI-assisted coding (Claude Code). What I brought was knowing what the department and its staff actually needed, and checking that the result worked for them.</p>
+    </div>
+  </div>
+
+  <div class="block">
+    <h2>What staff can do</h2>
+    <div class="feat">
+      <div><h3>Edit without code</h3><p>A visual editor lets staff click any text, image or banner on a page and change it, or add new text boxes, then preview before saving.</p></div>
+      <div><h3>Run the content</h3><p>News with photo galleries, events, faculty and staff profiles, programmes and research clusters are all managed from one admin panel.</p></div>
+      <div><h3>Two languages side by side</h3><p>Every item is stored in Thai and English together, so a page never shows a missing translation; it falls back to the other language.</p></div>
+      <div><h3>Safe by default</h3><p>Admins and editors have different rights, enforced on the server. Personal data such as alumni registrations can only be exported by admins.</p></div>
+    </div>
+  </div>
+
+  <div class="block">
+    <div class="prose">
+      <h2 style="margin-top:0">Where it's going</h2>
+      <p>The staging site runs on Vercel with a cloud PostgreSQL database and image storage. When the content is ready, the code and data will be handed over so the university can host the final site itself.</p>
+    </div>
+  </div>
+</main>
+<footer class="wrap"><span>© 2026 Ratchaphon Phonpoon</span><a href="../index.html">Back to home</a></footer>
+</body>
+</html>
